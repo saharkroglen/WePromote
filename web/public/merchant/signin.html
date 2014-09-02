@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns:ng="http://angularjs.org" lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="format-detection" content="telephone=no" />
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0"/>
+  <title>wePromote</title>
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/bootstrap-social.css" rel="stylesheet">
+  <link href="fonts/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <style>
+    .form-signin {
+      max-width: 330px;
+      padding: 15px;
+      margin: 0 auto;
+    }
+  </style>
+  
+	<script src="lib/jquery-1.11.0.js"></script>
+  <script type="text/javascript" src="http://www.parsecdn.com/js/parse-1.2.19.min.js"></script>
+  <script src="js/script.js"></script>
+  <script type="text/javascript" src="js/connect.js"></script>
+</head>
+<body>
+  <div class="container">
+    <form class="form-signin" role="form" id="form">
+      <div id="message"></div>
+      <h2 class="form-signin-heading">Please sign in</h2>
+      <input type="email" class="form-control" placeholder="Email address" id="username" required="" autofocus="">
+      <input type="password" class="form-control" placeholder="Password" id="password" required="">
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" value="remember-me"> Remember me
+        </label>
+      </div>
+      <button class="btn btn-primary btn-block" type="submit">Sign in</button>
+      <div class="text-center info-panel">
+        <br/>
+          ------------ or ------------
+        <br/>
+        <br/>
+      </div>
+      <a class="btn btn-block btn-social btn-lg btn-facebook" onclick="FBLogin ()">
+        <i class="fa fa-facebook"></i> Sign in with Facebook
+      </a>
+    </form>
+  </div>
+  <script type="text/javascript">
+    Parse.initialize("IwjXCfulcA64BVZd002616T56rLALjuhGnBdIRCn", "1PK4dWFuMOopioVSiS0jIyiUTUMwj50SjxY3n4kj");
+    
+    if ( Parse.User.current() ) {
+      if ( Parse.User.current().authenticated() )
+        location.href = './index.html';
+    }
+    
+    $('#form').submit(function (e) {
+      if ($('#form')[0].checkValidity()) {
+        var username = $('#username').val();
+        var password = $('#password').val();
+        
+        Parse.User.logIn(username, password, {
+          success: function(user) {
+            setCookie('c_user', 1, 30, '/');
+            setCookie('tk', user.sessionToken, 30, '/');
+            $('#message').append('<div class="alert alert-success"><strong>Well done!</strong> You are shortly redirect to the Dashboard...</div>');
+            setTimeout('location.href = "./index.html";', 1000);
+            
+          },
+          error: function(user, error) {
+            $('#message').append('<div class="alert alert-danger"><strong>Opps!</strong> Email or Password is incorrect. Error: '+error.message+'</div>')
+          }
+        });
+      }
+      e.preventDefault();
+    });
+    
+    function statusChangeCallback(response) {
+      if (response.status === 'connected') {
+        // $('#message').append('<div class="alert alert-success"><strong>Well done!</strong> You are shortly redirect to the Dashboard...</div>');
+        // setTimeout('location.href = "./index.html";', 1000);
+        FBLogin ();
+      } else if (response.status === 'not_authorized') {
+        alert('not_authorized');
+      }
+    }
+
+    function FBLogin () {
+      Parse.FacebookUtils.logIn("email", {
+        success: function(user) {
+          if (!user.existed()) {
+            FB.api('/me', function(res) {
+              user.set("email", res.email);
+              user.save();
+              setCookie('c_user', 1, 30, '/');
+              setCookie('c_username', user.name, 30, '/');
+              $('#message').append('<div class="alert alert-success"><strong>Well done!</strong> You are shortly redirect to the Dashboard...</div>');
+              setTimeout('location.href = "./index.html";', 1000);
+            })
+          } else {
+            console.log("User logged in through Facebook!"); // login
+            setCookie('c_user', 1, 30, '/');
+            setCookie('c_username', user.name, 30, '/');
+            $('#message').append('<div class="alert alert-success"><strong>Well done!</strong> You are shortly redirect to the Dashboard...</div>');
+            setTimeout('location.href = "./index.html";', 1000);
+          }
+        },
+        error: function(user, error) {
+          alert("User cancelled the Facebook login or did not fully authorize."); 
+        }
+      });
+    }
+  </script>
+</body>
+</html>

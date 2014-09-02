@@ -1,0 +1,11 @@
+{
+    "applications": {
+        "_default": {
+            "link": "wePromote"
+        }, 
+        "wePromote": {
+            "applicationId": "IwjXCfulcA64BVZd002616T56rLALjuhGnBdIRCn", 
+            "masterKey": "4eQn4OtJiEZ5Sw9pKgiPrJGL6TW2R1RV78E62LsF"
+        }
+    }
+}

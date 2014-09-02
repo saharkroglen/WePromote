@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html xmlns:ng="http://angularjs.org" lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="format-detection" content="telephone=no" />
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0"/>
+  <title>wePromote</title>
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="fonts/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link href="css/doc.min.css" rel="stylesheet">
+  <!-- Custom CSS -->
+  <link href="css/sb-admin.css" rel="stylesheet">
+
+  <!-- Morris Charts CSS -->
+  <link href="css/plugins/morris.css" rel="stylesheet">
+  <link href="css/datepicker.css" rel="stylesheet">
+
+  <!-- Custom Fonts -->
+  <link href="fonts/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <!-- <script type="text/javascript" src="js/connect.js"></script> -->
+  <script type="text/javascript" src="http://www.parsecdn.com/js/parse-1.2.19.min.js"></script>
+</head>
+<body>
+  <div id="wrapper">
+      <!-- Navigation -->
+      <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+          <!-- Brand and toggle get grouped for better mobile display -->
+          <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                  <span class="sr-only">Toggle navigation</span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="index.html" ng-controller="MerchentDisplayName">WePromote Dashboard {{merchentName}}</a>
+          </div>
+          <!-- Top Menu Items -->
+          <ul class="nav navbar-right top-nav">
+              <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-envelope"></i> <b class="caret"></b></a>
+                  <ul class="dropdown-menu message-dropdown">
+                      <li class="message-preview">
+                          <a href="#">
+                              <div class="media">
+                                  <span class="pull-left">
+                                      <img class="media-object" src="http://placehold.it/50x50" alt="">
+                                  </span>
+                                  <div class="media-body">
+                                      <h5 class="media-heading"><strong>John Smith</strong>
+                                      </h5>
+                                      <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
+                                      <p>Lorem ipsum dolor sit amet, consectetur...</p>
+                                  </div>
+                              </div>
+                          </a>
+                      </li>
+                      <li class="message-preview">
+                          <a href="#">
+                              <div class="media">
+                                  <span class="pull-left">
+                                      <img class="media-object" src="http://placehold.it/50x50" alt="">
+                                  </span>
+                                  <div class="media-body">
+                                      <h5 class="media-heading"><strong>John Smith</strong>
+                                      </h5>
+                                      <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
+                                      <p>Lorem ipsum dolor sit amet, consectetur...</p>
+                                  </div>
+                              </div>
+                          </a>
+                      </li>
+                      <li class="message-preview">
+                          <a href="#">
+                              <div class="media">
+                                  <span class="pull-left">
+                                      <img class="media-object" src="http://placehold.it/50x50" alt="">
+                                  </span>
+                                  <div class="media-body">
+                                      <h5 class="media-heading"><strong>John Smith</strong>
+                                      </h5>
+                                      <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
+                                      <p>Lorem ipsum dolor sit amet, consectetur...</p>
+                                  </div>
+                              </div>
+                          </a>
+                      </li>
+                      <li class="message-footer">
+                          <a href="#">Read All New Messages</a>
+                      </li>
+                  </ul>
+              </li>
+              <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i> <b class="caret"></b></a>
+                  <ul class="dropdown-menu alert-dropdown">
+                      <li>
+                          <a href="#">Alert Name <span class="label label-default">Alert Badge</span></a>
+                      </li>
+                      <li>
+                          <a href="#">Alert Name <span class="label label-primary">Alert Badge</span></a>
+                      </li>
+                      <li>
+                          <a href="#">Alert Name <span class="label label-success">Alert Badge</span></a>
+                      </li>
+                      <li>
+                          <a href="#">Alert Name <span class="label label-info">Alert Badge</span></a>
+                      </li>
+                      <li>
+                          <a href="#">Alert Name <span class="label label-warning">Alert Badge</span></a>
+                      </li>
+                      <li>
+                          <a href="#">Alert Name <span class="label label-danger">Alert Badge</span></a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                          <a href="#">View All</a>
+                      </li>
+                  </ul>
+              </li>
+              <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" ng-controller="MerchentDisplayName">
+                  <i class="fa fa-user"></i> <span ng-if="merchentName">{{merchentName}}</span><span ng-if="!merchentName">Welcome</span> <b class="caret"></b>
+                  
+                  </a>
+                  <ul class="dropdown-menu">
+                      <li>
+                          <a href="#"><i class="fa fa-fw fa-user"></i> Profile</a>
+                      </li>
+                      <li>
+                          <a href="#"><i class="fa fa-fw fa-envelope"></i> Inbox</a>
+                      </li>
+                      <li>
+                          <a href="javascript: $('#myModal').modal('toggle');"><i class="fa fa-fw fa-gear"></i> Update Name</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                          <a href="#"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
+                      </li>
+                  </ul>
+              </li>
+          </ul>
+          <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+          <div class="collapse navbar-collapse navbar-ex1-collapse">
+              <ul class="nav navbar-nav side-nav">
+                  <li class="active">
+                      <a href="#/dashboard"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
+                  </li>
+                  <li>
+                      <a href="javascript:;" data-toggle="collapse" data-target="#campaigns"><i class="fa fa-fw fa-bar-chart-o"></i> Campaigns <i class="fa fa-fw fa-caret-down"></i></a>
+                      <ul id="campaigns" class="collapse">
+                          <li>
+                              <a href="#/campaign-overview">Overview</a>
+                          </li>
+                          <li>
+                              <a href="#/add-campaign">Add New Campaign</a>
+                          </li>
+                          <!-- <li>
+                              <a href="#/edit-campaign">Edit Campaign</a>
+                          </li> -->
+                      </ul>
+                  </li>
+                  <li>
+                      <a href="javascript:;" data-toggle="collapse" data-target="#invitations"><i class="fa fa-fw fa-desktop"></i> Invitations <i class="fa fa-fw fa-caret-down"></i></a>
+                      <ul id="invitations" class="collapse">
+                          <li>
+                              <a href="#/invitation-overview">Overview</a>
+                          </li>
+                          <li>
+                              <a href="#/invite-promoter">Invite Member</a>
+                          </li>
+                      </ul>
+                  </li>
+              </ul>
+          </div>
+          <!-- /.navbar-collapse -->
+      </nav>
+  
+      <div id="page-wrapper">
+        <ng-view/>
+      </div>
+      <!-- Modal -->
+      <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" ng-controller="dialogBox" >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+              <h4 class="modal-title" id="myModalLabel">Update Name</h4>
+            </div>
+            <div class="modal-body">
+              <input id="updateMerchrntName" class="form-control" placeholder="Enter your Business name..."/>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary" id="updateMNClick" data-dismiss="modal">Save changes</button>
+            </div>
+          </div>
+        </div>
+      </div><!-- / Modal -->
+    
+  </div>
+  <!-- /#wrapper -->
+
+  <!-- scripts -->
+  <script type="text/javascript" src="js/index.js"></script>
+  <script src="lib/jx.min.js"></script>
+  <script src="lib/angular.js"></script>
+  <!-- <script src="lib/angular-mobile.js"></script> -->
+  <!-- <script src="lib/mobile-nav.js"></script> -->
+	<script src="lib/angular-route.js"></script>
+	<script src="lib/angular-resource.js"></script>
+	<!-- <script src="lib/angular-sanitize.js"></script> -->
+	<script src="lib/jquery-1.11.0.js"></script>
+  <script src="lib/bootstrap.min.js"></script>
+  <script src="lib/bootstrap-datepicker.js"></script>
+  
+  <script src="js/script.js"></script>
+	<script src="js/app.js"></script>
+  <script src="js/service.js"></script>
+	<script src="js/controllers.js"></script>
+  <script type="text/javascript">
+    app.initialize();
+  </script>
+</body>
+</html>

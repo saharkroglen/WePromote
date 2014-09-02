@@ -1,0 +1,146 @@
+<div ng-controller="EditCampaign" class="container-fluid">
+  <div class="col-lg-12">
+    <h1 class="page-header">
+        Edit Campaign
+    </h1>
+    <ol class="breadcrumb">
+        <li>
+            <i class="fa fa-dashboard"></i>  <a href="index.html">Dashboard</a>
+        </li>
+        <li class="active">
+            <i class="fa fa-fw fa-bar-chart-o"></i> Edit Campaign
+        </li>
+    </ol>
+  </div>
+  <div class="wrapInnerPage">
+    <select class="form-control" id="selectCampaign" ng-model="campaign" ng-options="campaign.campaignId as campaign.campaignName for campaign in campaigns track by campaign.campaignId" ng-change="changeEvent(this)">
+      <option value="">-- Choose Campaign --</option>
+    </select>
+  </div>
+  <br/>
+  <br/>
+  <form role="form" id="addCampaign" ng-submit="submit()" ng-if="selectedCampaign.show">
+    <div class="row">
+      <div class="form-group col-lg-6">
+        <div class="form-group col-lg-2">
+          <label>Campaign Name</label>
+        </div>
+        <div class="form-group col-lg-6">
+          <input class="form-control" id="cn" placeholder="Enter campaign name" required="" autofocus="" value="{{selectedCampaign.name}}"/>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-lg-6">
+        <div class="form-group col-lg-2">
+          <label>Active From:</label>
+        </div>
+        <div class="form-group col-lg-3">
+          <input type="date" id="af" value="{{selectedCampaign.af}}">
+        </div>
+        <div class="form-group col-lg-3">
+          <label>To:</label>
+          <input type="date" id="at" value="{{selectedCampaign.at}}">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-lg-6">
+        <div class="form-group col-lg-2">
+          <label>Redeemable From:</label>
+        </div>
+        <div class="form-group col-lg-3">
+          <input type="date" id="rf" value="{{selectedCampaign.rf}}">
+        </div>
+        <div class="form-group col-lg-3">
+          <label>To:</label>
+          <input type="date" id="rt" value="{{selectedCampaign.rt}}">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-lg-6">
+        <div class="form-group col-lg-2">
+          <label>Rewardable</label>
+        </div>
+        <div class="form-group col-lg-3">
+          <input type="checkbox" value="" id="r" checked disabled required="" value="{{selectedCampaign.rewardable}}"/>
+        </div>
+      </div>
+    </div>
+    
+    <div class="panel-group" id="accordion">
+    
+      <div class="panel panel-default" ng-repeat="deal in selectedCampaign.deals">
+        <div class="panel-heading">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{$index}}">
+              {{deal.name}} <button type="button" class="btn btn-xs btn-info pull-right" ng-click="$('.collapse').collapse()">Edit Deal</button>
+            </a>
+          </h4>
+        </div>
+        <div id="collapse{{$index}}" class="panel-collapse collapse">
+          <div class="panel-body">
+            <div class="editdeal" ng-if="deal">
+              <h2>Promotion Agreement</h2>
+              <div class="cloneDeal">
+                <div class="row">
+                  <div class="form-group col-lg-6">
+                    <div class="form-group col-lg-2">
+                      <label>Deal Name</label>
+                    </div>
+                    <div class="form-group col-lg-6">
+                      <input class="form-control" id="dealName{{$index}}" placeholder="Enter deal name..." ng-model="deal.name"/>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="form-group col-lg-6" style="line-height: 2.5;">
+                    <div class="form-group col-lg-2">
+                      <label>Deal Value</label>
+                    </div>
+                    <div class="form-group col-lg-2">
+                      <input class="form-control" id="dealValue{{$index}}" placeholder="Deal value..." ng-model="deal.value"/>
+                    </div>
+                    <div class="form-group col-lg-2">
+                      <label> -> Discount </label>
+                    </div>
+                    <div class="form-group col-lg-2">
+                      <input class="form-control" id="discount{{$index}}" placeholder="Discount..." ng-model="deal.discount"/>
+                    </div>
+                  </div>
+                </div>
+                <div class="row" ng-if="dealValue * (deal.discount/100)">
+                  <div class="form-group col-lg-6">
+                    <div class="form-group col-lg-2">
+                      <label>Deal Cost</label>
+                    </div>
+                    <div class="form-group col-lg-3">
+                      <input class="form-control" id="dealCost{{$index}}" value="{{deal.value * (1 - (deal.discount/100) )}}" disabled/>
+                    </div>
+                  </div>
+                </div>
+                
+                <p>Reward to promoter <input class="form-control inputInline" style="width:50px;" id="promoterReward{{$index}}" placeholder="20" ng-model="deal.promoterReward"/>$ (Should be at least X$ which 5% of deal cost)</p>
+                
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{$index}}">
+                  <button type="button" class="btn btn-success pull-right" ng-click="saveDeal(deal)">Save</button>
+                </a>
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{$index}}" id="collapse{{$index}}">
+                <button type="button" class="btn btn-danger pull-right" ng-click="deleteDeal(deal, $index)">Delete</button>
+                </a>
+                <div style="clear:both;"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+    <div ng-if="deals.length > 0">
+      <br/><br/><br/><br/><br/>
+      <button type="button" type="submit" ng-click="submit()" class="btn btn-lg btn-success pull-right">Save Campaign</button>
+    </div>
+    
+  </form>
+</div>

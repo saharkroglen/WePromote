@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:ng="http://angularjs.org" lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="format-detection" content="telephone=no" />
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0"/>
+  <title>wePromote</title>
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/bootstrap-social.css" rel="stylesheet">
+  <link href="fonts/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <style>
+    .form-signin {
+      max-width: 330px;
+      padding: 15px;
+      margin: 0 auto;
+    }
+  </style>
+  
+	<script src="lib/jquery-1.11.0.js"></script>
+  <script type="text/javascript" src="http://www.parsecdn.com/js/parse-1.2.19.min.js"></script>
+  <!-- <script type="text/javascript" src="js/connect.js"></script> -->
+</head>
+<body>
+  <div class="container">
+    <form class="form-signin" role="form" id="form">
+      <h2 class="form-signin-heading">Sign Up</h2>
+      <input type="text" class="form-control" id="firstName" placeholder="Enter First Name" required="" autofocus=""><br/>
+      <input type="text" class="form-control" id="lastName" placeholder="Enter Last Name" required=""><br/>
+      <input type="email" id="email" class="form-control" placeholder="Email address" required=""><br/>
+      <input type="password" id="pass" class="form-control" placeholder="Password" required=""><br/>
+      <input type="date" class="form-control" id="birth" value="2012-10-01"><br/>
+      <div class="radio">
+          <label>
+              <input type="radio" name="gender" value="male" checked="">Male
+          </label>
+      </div>
+      <div class="radio">
+          <label>
+              <input type="radio" name="gender" value="female">Female
+          </label>
+      </div>
+      <br/>
+      <button class="btn btn-primary btn-block" type="submit">Sign Up</button>
+    </form>
+  </div>
+  <script type="text/javascript">
+    Parse.initialize("IwjXCfulcA64BVZd002616T56rLALjuhGnBdIRCn", "1PK4dWFuMOopioVSiS0jIyiUTUMwj50SjxY3n4kj");
+    $('#form').submit(function (e) {
+      if ($('#form')[0].checkValidity()) {
+        var email = $('#email').val();
+        var pass = $('#pass').val();
+        var firstName = $('#firstName').val();
+        var lastName = $('#lastName').val();
+        var birth = $('#birth').val();
+        var sex = ($('[name="gender"]')[0].checked) ? $('[name="gender"]')[0].value : $('[name="gender"]')[1].value;
+        
+        var user = new Parse.User();
+        user.set("username", email);
+        user.set("email", email);
+        user.set("password", pass);
+        user.set("dateOfBirth", birth);
+        user.set("firstName",firstName);
+        user.set("lastName",lastName);
+        user.set("gender", sex);
+        user.set("userType", 1);
+
+        user.signUp(null, {
+            success: function(user) {
+                // Hooray! Let them use the app now.
+                alert("successfully stored in DB" + JSON.stringify(user));
+                return;
+            },
+            error: function(user, error) {
+                // Show the error message somewhere and let the user try again.
+                alert("Error: " + JSON.stringify(error));
+                return;
+            }
+        });
+      }
+      e.preventDefault();
+    });
+  </script>
+</body>
+</html>
