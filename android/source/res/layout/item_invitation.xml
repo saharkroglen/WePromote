@@ -1,0 +1,69 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/colorLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/txtClipartTitle"
+    android:layout_centerHorizontal="true"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"        
+        android:orientation="vertical"
+                android:layout_margin="10dp"
+        android:gravity="center_horizontal" >
+
+
+        <TextView
+            android:id="@+id/txtAppName"
+            android:layout_width="match_parent"            
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:ellipsize="end"
+            android:text="My package name"
+            android:textSize="18sp"
+            android:paddingRight="20dp" 
+            android:gravity="center_horizontal"/>
+       
+        <Button
+            android:id="@+id/btnConfirm"
+            android:layout_width="match_parent"            
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/app_name"
+            android:background="@drawable/confirmation_button_selector" 
+            android:text="@string/btn_confirm_invitation"
+            android:textColor="@color/white"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"/>
+		<TextView
+            android:id="@+id/txtDismiss"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"            
+            android:clickable="true"
+            android:gravity="center_horizontal"
+            android:text="@string/invitation_confirmation_decline"            
+            android:textSize="20sp"
+            android:layout_marginTop="25dp"
+            />
+         <TextView
+            android:id="@+id/txtSpam"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"            
+            android:clickable="true"
+            android:gravity="center_horizontal"
+            android:text="@string/invitation_confirmation_spam"            
+            android:textSize="20sp"
+            android:layout_marginTop="25dp" 
+            />
+        
+    </LinearLayout>
+     <ImageView
+            android:id="@+id/horizontalLineSpacer"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"            
+            android:layout_margin="0dp"
+            android:background="@drawable/horizontal_delimiter" />
+
+</LinearLayout>

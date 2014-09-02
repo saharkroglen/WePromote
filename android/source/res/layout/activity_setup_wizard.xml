@@ -1,0 +1,64 @@
+<RelativeLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    
+     
+    <com.wepromote.controls.PagingControllableViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        />
+
+    
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"        
+        android:layout_marginBottom="5dp"        
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/step1Cubic"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginRight="2dp"
+            android:contentDescription="@string/app_name"
+            android:background="@drawable/page_indicator_cube_selected" 
+            android:text="1"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:textColor="#ffffff"/>
+
+        <Button
+            android:id="@+id/step2Cubic"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginRight="2dp"
+            android:contentDescription="@string/app_name"
+            android:background="@drawable/page_indicator_cube" 
+            android:text="2"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:textColor="#ffffff"/>
+        <Button
+            android:id="@+id/step3Cubic"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginRight="2dp"
+            android:contentDescription="@string/app_name"
+            android:background="@drawable/page_indicator_cube" 
+            android:text="3"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:textColor="#ffffff"/>
+    </LinearLayout>
+
+    <!-- <include layout="@layout/move_next_prev_buttons" /> -->
+
+<include layout="@layout/circle_progress_layout"/>   
+
+</RelativeLayout>

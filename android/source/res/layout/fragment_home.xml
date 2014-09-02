@@ -1,0 +1,279 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.personalizedselfeed.MainActivity$PlaceholderFragment" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:paddingBottom="2dp"
+        android:paddingTop="2dp" >
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="2dp"
+            android:layout_weight="1"
+            android:background="@drawable/tile_grey_selector"
+            android:gravity="center_vertical" 
+            android:clickable="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="left|center_vertical"
+                android:orientation="horizontal" >
+
+              
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="wrap_content"                                        
+                    android:adjustViewBounds="true"
+                    android:layout_marginRight="5dp"
+                    android:src="@drawable/prefs" />
+                  <TextView               
+                    android:id="@+id/txtPreferences"     
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"                    
+                    android:gravity="center_vertical"
+                    android:text="Preferences"
+                    android:textSize="16sp" />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
+            android:layout_weight="1"
+            android:background="@drawable/tile_grey_selector"
+            android:gravity="center_vertical" 
+            android:clickable="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="right|center_vertical"
+                android:orientation="horizontal" >
+
+                <TextView                    
+                    android:id="@+id/txtTellFriend"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="5dp"
+                    android:gravity="center_vertical"
+                    android:text="Tell a friend"
+                    android:textSize="16sp" />
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="wrap_content"                    
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/tell_friend" />
+            </LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/mainLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="top"
+        android:orientation="vertical"
+        android:visibility="visible" >
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="top"
+            android:layout_weight="2"
+            android:adjustViewBounds="true"
+            android:paddingLeft="2dp"
+            android:paddingRight="2dp"
+            android:paddingTop="2dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/home_banner" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="3"
+            android:orientation="horizontal"
+            android:paddingTop="2dp" >
+
+            <RelativeLayout
+                android:id="@+id/tileShare"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"
+                android:layout_weight="1"
+                android:background="@drawable/tile_blue_selector" 
+                android:clickable="true">
+
+                <TextView
+                    android:id="@+id/txtShare"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:text="Share"
+                    android:textSize="16sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/txtShare"
+                    android:layout_marginTop="20dp"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal" >
+
+                    <ImageView
+                        android:id="@+id/btnFacebook"
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/facebook_circle" />
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:adjustViewBounds="true"
+                        android:layout_marginLeft="10dp"
+                        android:src="@drawable/twitter_circle" />
+                </LinearLayout>
+            </RelativeLayout>
+            
+
+            <RelativeLayout
+                android:id="@+id/tileInvitations"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"
+                android:layout_weight="1"
+                android:background="@drawable/tile_grey_selector"
+                android:clickable="true" >
+
+                <TextView
+                    android:id="@+id/txtInvitations"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:text="Pending Invitations"
+                    android:textSize="16sp" />
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/txtInvitations"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/warning" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="3"
+            android:orientation="horizontal"
+            android:paddingBottom="2dp"
+            android:paddingTop="2dp" >
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="2dp"
+                android:layout_weight="1"
+                android:background="@drawable/tile_grey_selector" 
+                android:clickable="true">
+
+                <TextView
+                    android:id="@+id/txtBenefits"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:text="My Rewards"
+                    android:textSize="16sp" />
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/txtBenefits"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/surprise" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/tileMembership"      
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="2dp"
+                android:layout_weight="1"
+                android:background="@drawable/tile_blue_selector" 
+                android:clickable="true">
+
+                <TextView
+                    android:id="@+id/txtCampaignMembership"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:text="My Merchants"
+                    android:textSize="16sp" />
+
+                <ImageView
+                                  
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/txtCampaignMembership"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/hands_shake" />
+            </RelativeLayout>
+                    </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="-30dp"
+            android:layout_weight="3"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingBottom="2dp"
+            android:paddingTop="2dp" 
+            android:animateLayoutChanges="true">
+
+            <ImageView
+                android:id="@+id/imgLogoPlaceholder"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:adjustViewBounds="true"
+                android:src="@drawable/logo"
+                android:visibility="gone" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="0.5"
+                android:src="@drawable/pixel" />
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>
