@@ -27,10 +27,10 @@
                 </div>
               </div>
             </td>
-            <td ng-if="deals[$index].cost && applyDiscountUpdate()">{{deals[$index].cost * (1 - deals[$index].discount/100).toFixed()}} $ </td>
-            <td ng-if="deals[$index].cost && !applyDiscountUpdate()">{{deals[$index].cost}} $ </td>
-            <td ng-if="deals[$index].cost && applyDiscountUpdate()">{{totalPrice(deals[$index].cost * (1 - deals[$index].discount/100), amount).toFixed()}} $ </td>
-            <td ng-if="deals[$index].cost && !applyDiscountUpdate()">{{totalPrice(deals[$index].cost, amount)}} $ </td>
+            <td ng-if="deals[$index].cost && discountApplied"><del>{{deals[$index].cost}}$</del> <b>{{(deals[$index].cost * (1 - deals[$index].discount/100)).toFixed()}}$</b></td>
+            <td ng-if="deals[$index].cost && !discountApplied">{{deals[$index].cost}}$ </td>
+            <td ng-if="deals[$index].cost && discountApplied"><del>{{totalPrice(deals[$index].cost, amount)}}$</del> <b>{{totalPrice(deals[$index].cost * (1 - deals[$index].discount/100), amount).toFixed()}}$</b></td>
+            <td ng-if="deals[$index].cost && !discountApplied">{{totalPrice(deals[$index].cost, amount)}}$ </td>
           </tr>
         </tbody>
       </table>
