@@ -37,6 +37,11 @@
   left: 4px;
 }
 
+.message-successful-discount-apply{
+	color: green;
+	font-weight: bold;
+}
+
 @-webkit-keyframes rotating {
     from{
         transform: rotate(0deg);

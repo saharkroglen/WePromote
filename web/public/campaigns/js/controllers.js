@@ -9,6 +9,7 @@ function LP ($scope, $http) {
   $scope.total = null;
   $scope.promoterName = null;
   $scope.amount = 1;
+  $scope.discountApplied = false;
   Parse.initialize("IwjXCfulcA64BVZd002616T56rLALjuhGnBdIRCn", "1PK4dWFuMOopioVSiS0jIyiUTUMwj50SjxY3n4kj");
   var CampaignPromoter = Parse.Object.extend("CampaignPromoter");
   var query = new Parse.Query(CampaignPromoter);
@@ -83,9 +84,18 @@ function LP ($scope, $http) {
   };
   $scope.apply = function (discount) {
     if ($scope.applyDiscountUpdate() && discount)
-      alert('Your code was successfully applied. You saved '+discount+'% off! \nYou can now order and enjoy your special member price.')
-  };
-  
+	{
+      //alert('Your code was successfully applied. You saved '+discount+'% off! \nYou can now order and enjoy your special member price.')	  
+	  $('#discountAppliedMessage').html('Your code was successfully applied. You saved '+discount+'% off! <br>You can now order and enjoy your special member price.');
+	  $scope.discountApplied = true;
+	  $('#discountAppliedMessage').show();
+	}
+	else
+	{
+		$scope.discountApplied = false;
+		$('#discountAppliedMessage').hide();
+	}
+  };  
 }
 
 function AllCampaigns ($scope, $http) {
