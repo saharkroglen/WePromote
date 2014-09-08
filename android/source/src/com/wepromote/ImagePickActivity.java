@@ -176,10 +176,11 @@ public class ImagePickActivity extends Activity {
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		loadPhotoPathFromPrefs();
 		InputStream stream = null;
-		if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+		if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) { 
 
 //			Bitmap imageBitmap = ScalingUtilities.createScaledBitmap( mPhotoUri, imageView.getWidth(), imageView.getHeight(), ScalingLogic.FIT);
-			Bitmap imageBitmap = ScalingUtilities.createScaledBitmap( mPhotoPath, UPLOAD_IMAGE_WIDTH, UPLOAD_IMAGE_HEIGHT, ScalingLogic.FIT);
+//			Bitmap imageBitmap = ScalingUtilities.createScaledBitmap( mPhotoPath, UPLOAD_IMAGE_WIDTH, UPLOAD_IMAGE_HEIGHT, ScalingLogic.FIT);
+			ScalingUtilities.createScaledBitmap( mPhotoPath, UPLOAD_IMAGE_WIDTH, UPLOAD_IMAGE_HEIGHT, ScalingLogic.FIT);
 //	        imageView.setImageBitmap(imageBitmap);
 	    }
 		else if (requestCode == REQUEST_IMAGE_FROM_LIB && resultCode == Activity.RESULT_OK)

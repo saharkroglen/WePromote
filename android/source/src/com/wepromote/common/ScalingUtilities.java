@@ -185,35 +185,39 @@ public class ScalingUtilities {
                 bitmap.recycle();
                 return bmRotated;
             }
-            catch (OutOfMemoryError e) {
+            catch (Exception e) {
                 e.printStackTrace();
                 return null;
             }
+            
         
         
     }
     public static Bitmap createScaledBitmap(String path, int dstWidth, int dstHeight,
             ScalingLogic scalingLogic) {
     	
-    	Bitmap unscaledBitmapRotated = adjustImageOrientation(path);  
-    	
+    	//Bitmap unscaledBitmapRotated = adjustImageOrientation(path);
+    	Bitmap originalBitmap = BitmapFactory.decodeFile(path);
+    	int orientation = getImageOrientation(path);
     	
     	//System.gc();
     	
-        Rect srcRect = calculateSrcRect(unscaledBitmapRotated.getWidth(), unscaledBitmapRotated.getHeight(),
+        Rect srcRect = calculateSrcRect(originalBitmap.getWidth(), originalBitmap.getHeight(),
                 dstWidth, dstHeight, scalingLogic);
-        Rect dstRect = calculateDstRect(unscaledBitmapRotated.getWidth(), unscaledBitmapRotated.getHeight(),
+        Rect dstRect = calculateDstRect(originalBitmap.getWidth(), originalBitmap.getHeight(),
                 dstWidth, dstHeight, scalingLogic);
         Bitmap scaledBitmap = Bitmap.createBitmap(dstRect.width(), dstRect.height(),
                 Config.ARGB_8888);
         Canvas canvas = new Canvas(scaledBitmap);
-        canvas.drawBitmap(unscaledBitmapRotated, srcRect, dstRect, new Paint(Paint.FILTER_BITMAP_FLAG));
-
-        unscaledBitmapRotated.recycle();
+        canvas.drawBitmap(originalBitmap, srcRect, dstRect, new Paint(Paint.FILTER_BITMAP_FLAG));
+        originalBitmap.recycle();
+        Bitmap rotatedBitmap = rotateBitmap(scaledBitmap, orientation);
+//        scaledBitmap.recycle();
+        Utils.saveBitmapToFile(rotatedBitmap, path);
         
-        //saveImageToStorage(uri, scaledBitmap);
-        Utils.saveBitmapToFile(scaledBitmap, path);
-        return scaledBitmap;
+//        Bitmap orientationNormalizedBitmap = adjustImageOrientation(path);
+//        return orientationNormalizedBitmap;
+        return rotatedBitmap;
     }
 
 	public static void saveImageToStorage(Uri uri, Bitmap scaledBitmap) {
@@ -229,21 +233,28 @@ public class ScalingUtilities {
         }
 	}
 
-	private static Bitmap adjustImageOrientation(String path) {
+	private static Bitmap adjustImageOrientation(String path) {				
+    	int orientation = getImageOrientation(path);      	
+    	return changeImageOrientation(path, orientation);
+	}
+
+	public static Bitmap changeImageOrientation(String path, int orientation) {
+		Bitmap bitmap = BitmapFactory.decodeFile(path);
+    	Bitmap rotatedBitmap = rotateBitmap(bitmap, orientation);
+		return rotatedBitmap;
+	}
+
+	public static int getImageOrientation(String path) {
 		ExifInterface exif;
-					
-    	int orientation = 0;
+		int orientation = 0;
 		try {
 			exif = new ExifInterface(path);
 			orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}  
-    	
-    	Bitmap unscaledBitmap = BitmapFactory.decodeFile(path);
-    	Bitmap unscaledBitmapRotated = rotateBitmap(unscaledBitmap, orientation);
-		return unscaledBitmapRotated;
+		}
+		return orientation;
 	}
 
     /**
