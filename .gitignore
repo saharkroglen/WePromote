@@ -1,7 +1,5 @@
 *.apk
-*.apk
 *.class
-*.dex
 *.dex
 *.ap_
 *.cache
