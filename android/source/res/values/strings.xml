@@ -41,5 +41,6 @@
     <string name="no_place_selected">&lt;No place selected&gt;</string>
     <string name="pick_seattle_place">Pick a Seattle Place</string>    
     <string name="exception">Exception: %1$s</string>
-
+	<string name="toast_picture_take_failure">An error occurred while taking a picture.\nPlease try again.</string>
+	<string name="toast_failed_switch_camera">Failed Switching camera</string>
 </resources>

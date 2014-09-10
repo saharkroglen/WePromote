@@ -23,6 +23,7 @@ import com.parse.SaveCallback;
 import com.wepromote.R;
 import com.wepromote.WePromoteApplication;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -218,7 +219,7 @@ public class FacebookProvider  {
     
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
     	
-    	if (requestCode == 99 && data != null)
+    	if (requestCode == 99 && data != null && resultCode == Activity.RESULT_OK)
 		{
     		Utils.showSpinner(mContext, true, "Uploading Photo...");
     		Bundle extras = data.getExtras();
@@ -232,14 +233,9 @@ public class FacebookProvider  {
 			uiHelper.onActivityResult(requestCode, resultCode, data, dialogCallback);
 			
 			return;
-		}
+		}    	
 //    	else
 //    		Utils.showSpinner(WePromoteApplication.getContext(),false);
-    		
-
-    	
-    	
-        
     }
 
     

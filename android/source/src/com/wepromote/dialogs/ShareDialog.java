@@ -94,7 +94,7 @@ public class ShareDialog extends Dialog implements
 		
 		switch (v.getId()) {
 		case R.id.tileShareFacebook:
-			Utils.showSpinner(mContext.getActivity(), true);
+			//Utils.showSpinner(mContext.getActivity(), true);
 			String campaignLandingPageLink = String.format(
 					"http://wepromote.parseapp.com/campaigns/?cid=%s#/",
 					mCampaignID);

@@ -319,7 +319,7 @@ public class MainActivity extends  ActionBarActivity implements
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		// TODO Auto-generated method stub
 		super.onActivityResult(requestCode, resultCode, data);
-				
+//		System.gc();		
 		Fragment f = getSupportFragmentManager().findFragmentById(R.id.container);
 		if (f instanceof PostFragment) 
 		{

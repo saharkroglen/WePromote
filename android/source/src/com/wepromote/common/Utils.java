@@ -47,15 +47,18 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Typeface;
+import android.graphics.Bitmap.CompressFormat;
 import android.graphics.Bitmap.Config;
 import android.graphics.PorterDuff.Mode;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.provider.Settings;
 import android.support.v4.content.LocalBroadcastManager;
 import android.text.Html;
@@ -198,6 +201,34 @@ public class Utils {
 			return false;
 		}
 
+	}
+	
+	class SavePhotoByteArrayTask extends AsyncTask<byte[], Void, Void> {
+		private String mPath;
+		public SavePhotoByteArrayTask(String filePath)
+		{
+			mPath = filePath;
+		}
+	    @Override
+	    protected Void doInBackground(byte[]... byteArray) {
+	      File photo=new File(mPath);
+
+	      if (photo.exists()) {
+	            photo.delete();
+	      }
+
+	      try {
+	        FileOutputStream fos=new FileOutputStream(photo.getPath());
+
+	        fos.write(byteArray[0]);
+	        fos.close();
+	      }
+	      catch (java.io.IOException e) {
+	        Log.e("PictureDemo", "Exception in photoCallback", e);
+	      }
+
+	      return(null);
+	    }
 	}
 
 	public final static boolean isValidEmail(CharSequence target) {
@@ -373,6 +404,52 @@ public class Utils {
 
 		return stringBuilder.toString();
 	}
+	public static Bitmap safeBitmapCopy(Bitmap sourceBitmap, boolean rotate,
+			int angle) {
+		Matrix matrix = new Matrix();
+		matrix.postRotate(angle);
+
+		Bitmap copiedBitmap = null;
+
+		int compressionPercent = 100;
+
+		while ((copiedBitmap == null) && compressionPercent > 20) {
+			Log.i(Utils.TAG, "Fixing compression rate:"
+					+ compressionPercent);
+			try {
+				if (compressionPercent != 100) {
+					ByteArrayOutputStream bos = new ByteArrayOutputStream();
+					sourceBitmap.compress(CompressFormat.JPEG,
+							compressionPercent, bos);
+
+					Bitmap oldBitmap = sourceBitmap;
+
+					sourceBitmap = BitmapFactory
+							.decodeStream(new ByteArrayInputStream(bos
+									.toByteArray()));
+
+					oldBitmap.recycle();
+					System.gc();
+				}
+
+				if (rotate) {
+					copiedBitmap = Bitmap.createBitmap(sourceBitmap, 0, 0,
+							sourceBitmap.getWidth(),
+							sourceBitmap.getHeight(), matrix, false);
+				} else {
+					copiedBitmap = sourceBitmap.copy(Config.ARGB_8888,
+							false);
+				}
+			} catch (OutOfMemoryError e) {
+				Log.e(Utils.TAG,
+						"Out of memory exception creating compressed picture");
+				compressionPercent -= 5;
+			}
+		}
+
+		return copiedBitmap;
+	}
+
 
 	public static void HideKeyboard(Activity activity, View control) {
 		// InputMethodManager imm = (InputMethodManager) c

@@ -92,12 +92,14 @@ public class ScalingUtilities {
        
     public static Bitmap decodeResource(String path, int dstWidth, int dstHeight,
             ScalingLogic scalingLogic) {
-        Options options = new Options();
+        Options options = new Options();        
         options.inJustDecodeBounds = true;
         BitmapFactory.decodeFile(path, options);
         options.inJustDecodeBounds = false;
-        options.inSampleSize = calculateSampleSize(options.outWidth, options.outHeight, dstWidth,
-                dstHeight, scalingLogic);
+//        options.inSampleSize = calculateSampleSize(options.outWidth, options.outHeight, dstWidth,dstHeight, scalingLogic);
+        options.inSampleSize = 1;
+        options.outWidth = dstWidth;
+        options.outHeight = dstHeight;
         Bitmap unscaledBitmap = BitmapFactory.decodeFile(path, options);
 
         return unscaledBitmap;
@@ -193,15 +195,12 @@ public class ScalingUtilities {
         
         
     }
-    public static Bitmap createScaledBitmap(String path, int dstWidth, int dstHeight,
+    public static Bitmap createScaledBitmapUsingCanvas(String path, int dstWidth, int dstHeight,
             ScalingLogic scalingLogic) {
-    	
-    	//Bitmap unscaledBitmapRotated = adjustImageOrientation(path);
-    	Bitmap originalBitmap = BitmapFactory.decodeFile(path);
+    
+    	Bitmap originalBitmap = BitmapFactory.decodeFile(path);    	
     	int orientation = getImageOrientation(path);
-    	
-    	//System.gc();
-    	
+    	    	
         Rect srcRect = calculateSrcRect(originalBitmap.getWidth(), originalBitmap.getHeight(),
                 dstWidth, dstHeight, scalingLogic);
         Rect dstRect = calculateDstRect(originalBitmap.getWidth(), originalBitmap.getHeight(),
@@ -211,14 +210,24 @@ public class ScalingUtilities {
         Canvas canvas = new Canvas(scaledBitmap);
         canvas.drawBitmap(originalBitmap, srcRect, dstRect, new Paint(Paint.FILTER_BITMAP_FLAG));
         originalBitmap.recycle();
-        Bitmap rotatedBitmap = rotateBitmap(scaledBitmap, orientation);
-//        scaledBitmap.recycle();
+        Bitmap rotatedBitmap = rotateBitmap(scaledBitmap, orientation); 
         Utils.saveBitmapToFile(rotatedBitmap, path);
         
-//        Bitmap orientationNormalizedBitmap = adjustImageOrientation(path);
-//        return orientationNormalizedBitmap;
         return rotatedBitmap;
     }
+    public static Bitmap createScaledBitmapUsingDownsampling(String path, int dstWidth, int dstHeight,
+            ScalingLogic scalingLogic) {
+    	
+    	Bitmap scaledBitmap = decodeResource(path, dstWidth, dstHeight, scalingLogic.FIT);
+//    	int orientation = getImageOrientation(path);
+    	
+//        Bitmap rotatedBitmap = rotateBitmap(scaledBitmap, orientation); 
+//        Utils.saveBitmapToFile(rotatedBitmap, path);
+
+//        return rotatedBitmap;
+    	return scaledBitmap;
+    }
+
 
 	public static void saveImageToStorage(Uri uri, Bitmap scaledBitmap) {
 		try{

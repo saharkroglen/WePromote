@@ -9,6 +9,8 @@ public class Constants {
 	public static final String PROMOTER_PREFIX = "#";
 	public static final String MERCHANT_PREFIX = "@";
 	
+	public static final String 	EXTRA_PHOTO_PATH = "photoPath";
+	
 //	public static final String EXTRA_MENU_ITEM = "extra_menu_item";
 
 }
