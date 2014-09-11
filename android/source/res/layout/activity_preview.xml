@@ -23,24 +23,25 @@
             <FrameLayout
                 android:id="@+id/preview"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"                
+                android:layout_height="wrap_content"
                 android:layout_margin="5dp" >
             </FrameLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
-                android:layout_alignParentBottom="true"
-                >
+                android:layout_alignParentBottom="true" >
 
                 <ImageView
-                    android:id="@+id/btn_switch_camera"
+                    android:id="@+id/btn_camera_flash"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
                     android:adjustViewBounds="true"
-                    android:src="@drawable/btn_swithch_camera_selector"
-                    android:visibility="visible" />
+                    android:src="@drawable/btn_camera_flash_selector" 
+                    android:clickable="true"/>
 
                 <ImageView
                     android:id="@+id/btn_shot"
@@ -48,8 +49,19 @@
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:adjustViewBounds="true"
-                    android:src="@drawable/btn_shot_selector"
-                    android:visibility="visible" />
+                    android:src="@drawable/btn_shot_selector" 
+                    android:clickable="true"/>
+
+                <ImageView
+                    android:id="@+id/btn_switch_camera"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/btn_swithch_camera_selector" 
+                    android:clickable="true"/>
             </RelativeLayout>
         </RelativeLayout>
 
@@ -76,6 +88,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
+                    android:layout_marginRight="10dp"
+                    android:layout_centerVertical="true"
                     android:adjustViewBounds="true"
                     android:src="@drawable/btn_good_selector" />
 
@@ -84,6 +98,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_centerVertical="true"
                     android:adjustViewBounds="true"
                     android:src="@drawable/btn_bad_selector" />
             </RelativeLayout>
