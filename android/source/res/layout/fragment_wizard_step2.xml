@@ -19,11 +19,11 @@
             android:scaleType="centerCrop"
             android:src="@drawable/choose_promoter_id" />
          <ImageView
-                android:layout_width="100dp"
+                android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginRight="20dp"
-                android:layout_alignParentRight="true"                
+                android:layout_marginLeft="10dp"
+                android:layout_alignParentLeft="true"                
                 android:adjustViewBounds="true"
                 android:src="@drawable/logo" />
     </RelativeLayout>
@@ -58,7 +58,7 @@
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:layout_marginLeft="20dp"                
+                android:layout_marginLeft="5dp"                
                 android:src="@drawable/arrow_14" />
         </LinearLayout>
 

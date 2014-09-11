@@ -124,8 +124,12 @@ public class MainActivity extends  ActionBarActivity implements
 	
 	private void handleInternalMessage(InternalMessage msg) {
 		switch (msg.messageID) {
+		case InternalMessage.MESSAGE_LOGIN_SUCCESSFUL:
+				
+			break;
 		case InternalMessage.MESSAGE_LOGOUT:
 			logout();
+			openHome();
 			break;
 //		case InternalMessage.MESSAGE_SELECT_MENU_ITEM:
 //			Integer menuID = Integer.valueOf(msg.messageText);
@@ -203,7 +207,6 @@ public class MainActivity extends  ActionBarActivity implements
 			logout();
 			break;
 		}
-
 	}
 
 	public void openInvitations()
@@ -257,6 +260,7 @@ public class MainActivity extends  ActionBarActivity implements
 	}
 	private void refreshTitle() {
 		mTitle = getActivityTitle();
+		restoreActionBar();
 	}
 
 	public String getActivityTitle() {

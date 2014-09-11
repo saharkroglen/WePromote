@@ -16,6 +16,7 @@ public class InternalMessage implements Parcelable{
 	public final static int MESSAGE_SHOW_SPINNER = 9;
 	public final static int MESSAGE_SHOW_SETUP_WIZARD_SPINNER = 10;
 	public final static int MESSAGE_FACEBOOK_EMAIL_RESOLVED = 11;
+	public final static int MESSAGE_LOGIN_SUCCESSFUL = 12;
 	
 	
 	public int messageID;

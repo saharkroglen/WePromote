@@ -235,6 +235,7 @@ public class User  {
 			    	Log.v(TAG, String.format("Login succeeded: %s", user.getUsername()));
 			    	checkEmailVerified();
 			    	WePromoteApplication.setInstallationParams(getPromoterID(false),isFacebookUser());
+			    	Utils.sendMessage(WePromoteApplication.getContext(),new InternalMessage(InternalMessage.MESSAGE_LOGIN_SUCCESSFUL, null));
 			    	fireOnLoginStateChange();
 			    } 
 			    else {
@@ -300,7 +301,7 @@ public class User  {
 						Log.d(TAG,String.format("User '%s' logged in via Facebook!",facebookUser.getEmail()));
 					}
 			    	
-			      
+				  Utils.sendMessage(WePromoteApplication.getContext(),new InternalMessage(InternalMessage.MESSAGE_LOGIN_SUCCESSFUL, null));
 			      fireOnLoginStateChange();
 			      
 			    }

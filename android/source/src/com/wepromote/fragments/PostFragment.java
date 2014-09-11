@@ -100,7 +100,7 @@ public class PostFragment extends Fragment implements ShareDialog.OnShareSelecte
 									"You have no campaigns to share yet");
 							Utils.showSpinner(WePromoteApplication.getContext(),false);
 							return;
-						}
+						} 
 						Campaign.getCampaigns(campaignIDs,
 								new Campaign.OnDone() {
 
