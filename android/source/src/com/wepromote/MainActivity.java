@@ -97,8 +97,12 @@ public class MainActivity extends  ActionBarActivity implements
 		}
 		else
 		{
+			Fragment f = getSupportFragmentManager().findFragmentById(R.id.container);
+			if (f == null)
+				openHome();
+			
 //			Utils.sendMessage(WePromoteApplication.getContext(),new InternalMessage(InternalMessage.MESSAGE_SELECT_MENU_ITEM,String.valueOf(MENU_ITEM_HOME)));
-			openHome();
+			
 		}
 		
 //		Intent i = new Intent(this,ImagePickActivity.class);
@@ -224,7 +228,7 @@ public class MainActivity extends  ActionBarActivity implements
 	
 	public void openHome()
 	{
-		FragmentManager fragmentManager = getSupportFragmentManager();
+		FragmentManager fragmentManager = getSupportFragmentManager(); 
 		Fragment homeFrag = new HomeFragment(); 
 		Bundle args = new Bundle();
 		args.putString(WebViewFragment.ARG_PROFILE_NAME, "todo");

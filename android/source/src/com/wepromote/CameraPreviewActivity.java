@@ -37,6 +37,7 @@ import android.widget.ViewSwitcher;
 
 public class CameraPreviewActivity extends Activity /*
 															 */{
+	
 	private CameraImp1 mPreview;
 	private static Camera mCamera;
 	private ImageView mTakePicture;
@@ -116,12 +117,21 @@ public class CameraPreviewActivity extends Activity /*
 	    }
 	    return c; // returns null if camera is unavailable
 	}
+	
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_preview);		
 		
+		
+//		if (savedInstanceState != null && savedInstanceState.getInt(REQUEST_CODE) != 0)
+//		{
+//			int requestCode = getIntent().getExtras().getInt(REQUEST_CODE);
+//			getIntent().putExtra(REQUEST_CODE, requestCode);
+//		}
+	    
 		Bundle extras = getIntent().getExtras();
 		if (extras != null) {
 			mPhotoPath = extras.getString(Constants.EXTRA_PHOTO_PATH);
@@ -182,6 +192,17 @@ public class CameraPreviewActivity extends Activity /*
 //		mSelectionSquare = (TouchView) findViewById(R.id.left_top_view);
 
 	}
+	
+//	@Override
+//	public void onSaveInstanceState(Bundle savedInstanceState) {
+//	    // Save the user's current game state
+//		int requestCode = getIntent().getExtras().getInt(REQUEST_CODE);		
+//	    savedInstanceState.putInt(REQUEST_CODE, requestCode);
+//	    
+//	    
+//	    // Always call the superclass so it can save the view hierarchy state
+//	    super.onSaveInstanceState(savedInstanceState);
+//	}
 	private void initCamera() {		
 		if (mCamera == null)
 			mCamera = getCameraInstance();

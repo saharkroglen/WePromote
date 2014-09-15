@@ -9,15 +9,15 @@
 
     <ViewSwitcher
         android:id="@+id/viewSwitcher"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_centerInParent="true"
         android:inAnimation="@android:anim/slide_in_left"
         android:outAnimation="@android:anim/slide_out_right" >
 
         <RelativeLayout
             android:id="@+id/cameralayout"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content" >
 
             <FrameLayout
@@ -27,10 +27,13 @@
                 android:layout_margin="5dp" >
             </FrameLayout>
 
-            <RelativeLayout
-                android:layout_width="match_parent"
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="100dp"
-                android:layout_alignParentBottom="true" >
+                android:layout_alignParentBottom="true" 
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_centerHorizontal="true">
 
                 <ImageView
                     android:id="@+id/btn_camera_flash"
@@ -41,7 +44,8 @@
                     android:layout_marginLeft="10dp"
                     android:adjustViewBounds="true"
                     android:src="@drawable/btn_camera_flash_selector" 
-                    android:clickable="true"/>
+                    android:clickable="true"
+                    android:layout_marginRight="50dp"/>
 
                 <ImageView
                     android:id="@+id/btn_shot"
@@ -50,7 +54,8 @@
                     android:layout_centerInParent="true"
                     android:adjustViewBounds="true"
                     android:src="@drawable/btn_shot_selector" 
-                    android:clickable="true"/>
+                    android:clickable="true"
+                    android:layout_marginRight="50dp"/>
 
                 <ImageView
                     android:id="@+id/btn_switch_camera"
@@ -62,7 +67,7 @@
                     android:adjustViewBounds="true"
                     android:src="@drawable/btn_swithch_camera_selector" 
                     android:clickable="true"/>
-            </RelativeLayout>
+            </LinearLayout>
         </RelativeLayout>
 
         <RelativeLayout
@@ -79,7 +84,7 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
+                android:layout_height="70dp"
                 android:layout_alignParentBottom="true"
                  >
 

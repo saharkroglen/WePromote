@@ -11,6 +11,8 @@ public class Constants {
 	
 	public static final String 	EXTRA_PHOTO_PATH = "photoPath";
 	
+	
+	public static final String REQUEST_CODE = "requestCode";
 //	public static final String EXTRA_MENU_ITEM = "extra_menu_item";
 
 }

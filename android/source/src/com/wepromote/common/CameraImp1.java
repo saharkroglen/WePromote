@@ -277,7 +277,8 @@ public class CameraImp1 extends SurfaceView implements SurfaceHolder.Callback {
 		}
 		// parameters.setFocusMode(Camera.Parameters.FOCUS_MODE_MACRO);
 		if (supportAutoFocus)
-			parameters.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
+			parameters.setFocusMode(Camera.Parameters.FOCUS_MODE_AUTO);
+		
 	}
     private void setCameraDimensionsParams(Camera.Parameters parameters,int requestedWidth,int requestedHeight) {
     	
