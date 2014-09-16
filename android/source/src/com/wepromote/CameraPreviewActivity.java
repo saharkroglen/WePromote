@@ -11,6 +11,8 @@ import java.util.Date;
 import com.wepromote.common.CameraImp1;
 import com.wepromote.common.CameraImp1.CameraListener;
 import com.wepromote.common.Constants;
+import com.wepromote.common.ScalingUtilities;
+import com.wepromote.common.Utils;
 
 import android.app.ActionBar.LayoutParams;
 import android.app.Activity;
@@ -214,7 +216,7 @@ public class CameraPreviewActivity extends Activity /*
 				@Override
 				public void onPictureTaken() {
 					mPreview.stopPreview();
-					mPreviewedImageView.setImageURI(Uri.fromFile(new File(mPhotoPath)));
+					mPreviewedImageView.setImageBitmap(ScalingUtilities.decodeResource(mPhotoPath, mScreenWidth, mScreenHeight, ScalingUtilities.ScalingLogic.FIT));
 					mViewSwitcher_photo_frame.setDisplayedChild(1);
 				}
 			});

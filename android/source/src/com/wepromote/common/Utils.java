@@ -82,6 +82,17 @@ public class Utils {
 	
 
 
+	public static boolean isFacebookAppInstalled()
+	{
+		try{
+		    ApplicationInfo info = WePromoteApplication.getContext().getPackageManager().
+		            getApplicationInfo("com.facebook.katana", 0 );
+		    return true;
+		} catch( PackageManager.NameNotFoundException e ){
+		    return false;
+		}
+	}
+	
 	public static void launchPackage(Context c,String packageName, String name) {
 		Intent intent = new Intent("android.intent.action.MAIN");
 		intent.addCategory("android.intent.category.LAUNCHER");

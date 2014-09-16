@@ -710,6 +710,7 @@ int string successfully_posted_post 0x7f080045
 int string title_item_detail 0x7f08002a
 int string title_item_list 0x7f080036
 int string toast_enter_credentials 0x7f080031
+int string toast_facebook_app_missing 0x7f080050
 int string toast_failed_switch_camera 0x7f08004f
 int string toast_first_login 0x7f080033
 int string toast_invalid_email 0x7f080032

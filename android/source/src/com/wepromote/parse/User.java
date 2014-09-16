@@ -252,6 +252,7 @@ public class User  {
 	public void loginFacebook(final Activity context)
 	{
 		List<String> permissions = Arrays.asList("basic_info", 
+				//"public_profile" - public_profile should replace basic_info  when facebook app is not installed. but we prevent this since other stuff won't work if using the web login for facebook				
 				"user_friends",
 				"user_about_me", 
 				"user_relationships", 

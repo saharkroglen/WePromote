@@ -87,8 +87,15 @@ public class SetupWizardStep1Fragment extends SetupFragmentBase implements
 	}
 
 	private void facebookLogin() {
-		Utils.sendMessage(WePromoteApplication.getContext(),new InternalMessage(InternalMessage.MESSAGE_SHOW_SETUP_WIZARD_SPINNER,"true"));
-		WePromoteApplication.getUser().loginFacebook(SetupWizardStep1Fragment.this.getActivity());
+		if (Utils.isFacebookAppInstalled())
+		{
+			Utils.sendMessage(WePromoteApplication.getContext(),new InternalMessage(InternalMessage.MESSAGE_SHOW_SETUP_WIZARD_SPINNER,"true"));
+			WePromoteApplication.getUser().loginFacebook(SetupWizardStep1Fragment.this.getActivity());
+		}
+		else
+		{
+			Utils.showToast(this.getActivity(), R.string.toast_facebook_app_missing);
+		}
 	}
 	
 	

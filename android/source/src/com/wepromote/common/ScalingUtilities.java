@@ -96,8 +96,8 @@ public class ScalingUtilities {
         options.inJustDecodeBounds = true;
         BitmapFactory.decodeFile(path, options);
         options.inJustDecodeBounds = false;
-//        options.inSampleSize = calculateSampleSize(options.outWidth, options.outHeight, dstWidth,dstHeight, scalingLogic);
-        options.inSampleSize = 1;
+        options.inSampleSize = calculateSampleSize(options.outWidth, options.outHeight, dstWidth,dstHeight, scalingLogic);
+//        options.inSampleSize = 1;
         options.outWidth = dstWidth;
         options.outHeight = dstHeight;
         Bitmap unscaledBitmap = BitmapFactory.decodeFile(path, options);

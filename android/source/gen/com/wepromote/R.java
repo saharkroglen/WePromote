@@ -1734,6 +1734,7 @@ containing a value of this type.
         public static final int title_item_detail=0x7f08002a;
         public static final int title_item_list=0x7f080036;
         public static final int toast_enter_credentials=0x7f080031;
+        public static final int toast_facebook_app_missing=0x7f080050;
         public static final int toast_failed_switch_camera=0x7f08004f;
         public static final int toast_first_login=0x7f080033;
         public static final int toast_invalid_email=0x7f080032;

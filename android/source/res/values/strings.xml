@@ -43,4 +43,5 @@
     <string name="exception">Exception: %1$s</string>
 	<string name="toast_picture_take_failure">An error occurred while taking a picture.\nPlease try again.</string>
 	<string name="toast_failed_switch_camera">Failed Switching camera</string>
+	<string name="toast_facebook_app_missing">Facebook app is missing.\nPlease try again after Facebook app is installed</string>
 </resources>
