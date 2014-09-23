@@ -3,6 +3,7 @@ package com.wepromote.fragments;
 
 import java.util.List;
 
+import android.R.color;
 import android.annotation.TargetApi;
 
 import com.parse.FindCallback;
@@ -11,6 +12,7 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -26,6 +28,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.parse.ParseObject;
+import com.readystatesoftware.viewbadger.BadgeView;
 import com.wepromote.MainActivity;
 import com.wepromote.R;
 import com.wepromote.WePromoteApplication;
@@ -50,6 +53,11 @@ public class HomeFragment extends Fragment implements OnClickListener{
 	private ImageView mLogo;
 	private ViewGroup mTileCampaignMembership;
 	private ViewGroup mainLayout;
+	private ViewGroup mTileInvitation;
+	private View mImgInvitation;
+	private View mImgRewards;
+	private BadgeView mInvitationBadge;
+	private BadgeView mRewardsBadge;
 	public HomeFragment () {
 	
 	}
@@ -90,8 +98,26 @@ public class HomeFragment extends Fragment implements OnClickListener{
 		mTileShare = (ViewGroup)rootView.findViewById(R.id.tileShare);
 		mTileShare.setOnClickListener(this);
 		
-		mTileShare = (ViewGroup)rootView.findViewById(R.id.tileInvitations);
-		mTileShare.setOnClickListener(this);
+		mTileInvitation = (ViewGroup)rootView.findViewById(R.id.tileInvitations);
+		mTileInvitation.setOnClickListener(this);
+		mImgInvitation = rootView.findViewById(R.id.imgInvitation);
+		mInvitationBadge = new BadgeView(this.getActivity(), mImgInvitation);
+		mInvitationBadge.setBackgroundResource(R.drawable.badge_red);
+		mInvitationBadge.setBadgeMargin(0, 0);
+		mInvitationBadge.setText("2");
+		mInvitationBadge.show();
+		
+		
+		mImgRewards = rootView.findViewById(R.id.imgRewards);
+		mRewardsBadge = new BadgeView(this.getActivity(), mImgRewards);
+		mRewardsBadge.setText("4");
+		mRewardsBadge.setBackgroundResource(R.drawable.badge_orange);
+//		mRewardsBadge.setTextSize(20);
+		mRewardsBadge.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);
+		mRewardsBadge.setBadgeMargin(0, 0);
+//		mRewardsBadge.setPadding(5, 5, 5, 5);
+		mRewardsBadge.setBadgeBackgroundColor(Color.GREEN);
+		mRewardsBadge.show();
 		
 		mTileCampaignMembership = (ViewGroup)rootView.findViewById(R.id.tileMembership);
 		mTileCampaignMembership.setOnClickListener(this);

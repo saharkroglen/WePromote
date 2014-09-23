@@ -172,11 +172,12 @@
                     android:textSize="16sp" />
 
                 <ImageView
-                    android:layout_width="50dp"
+                    android:id="@+id/imgInvitation"
+                    android:layout_width="60dp"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/txtInvitations"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="20dp"
                     android:adjustViewBounds="true"
                     android:src="@drawable/warning" />
             </RelativeLayout>
@@ -208,7 +209,8 @@
                     android:textSize="16sp" />
 
                 <ImageView
-                    android:layout_width="50dp"
+                    android:id="@+id/imgRewards"
+                    android:layout_width="60dp"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/txtBenefits"
                     android:layout_centerHorizontal="true"
@@ -238,7 +240,7 @@
 
                 <ImageView
                                   
-                    android:layout_width="50dp"
+                    android:layout_width="60dp"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/txtCampaignMembership"
                     android:layout_centerHorizontal="true"

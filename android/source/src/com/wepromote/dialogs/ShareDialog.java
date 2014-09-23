@@ -1,5 +1,6 @@
 package com.wepromote.dialogs;
 
+import com.facebook.android.Util;
 import com.wepromote.ImagePickActivity;
 import com.wepromote.R;
 import com.wepromote.WePromoteApplication;
@@ -13,6 +14,9 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.graphics.*;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -91,13 +95,13 @@ public class ShareDialog extends Dialog implements
 
 	@Override
 	public void onClick(View v) {
-		
+		String campaignLandingPageLink = String.format(
+				"http://wepromote.parseapp.com/campaigns/?cid=%s#/",
+				mCampaignID);
 		switch (v.getId()) {
 		case R.id.tileShareFacebook:
 			//Utils.showSpinner(mContext.getActivity(), true);
-			String campaignLandingPageLink = String.format(
-					"http://wepromote.parseapp.com/campaigns/?cid=%s#/",
-					mCampaignID);
+			
 			Log.v(Constants.TAG, "campaign landing page: "
 					+ campaignLandingPageLink);
 
@@ -109,6 +113,27 @@ public class ShareDialog extends Dialog implements
 			break;
 		case R.id.tileShareTwitter:
 
+			break;
+		case R.id.tileShareWhatsapp:
+
+			PackageManager pm = mContext.getActivity().getPackageManager();
+		    try {
+
+		        Intent waIntent = new Intent(Intent.ACTION_SEND);
+		        waIntent.setType("text/plain");
+		        String text = String.format("Hi Man!\nI became a club member of %s and would like to share with you this benefit %s\n see ya..","Hilton", campaignLandingPageLink);
+
+		        PackageInfo info = pm.getPackageInfo("com.whatsapp",PackageManager.GET_META_DATA);
+		        //Check if package exists or not. If not then code 
+		        //in catch block will be called
+		        waIntent.setPackage("com.whatsapp");
+
+		            waIntent.putExtra(Intent.EXTRA_TEXT, text);
+		            mContext.getActivity().startActivity(Intent.createChooser(waIntent, "Share with"));
+
+		   } catch (NameNotFoundException e) {		        
+		        Utils.showToast(mContext.getActivity(), "WhatsApp not Installed");
+		   }  
 			break;
 		}
 		ShareDialog.this.dismiss();
