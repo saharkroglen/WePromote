@@ -222,6 +222,7 @@ public class ImagePickActivity extends Activity {
 					photoFile = createImageFile();
 				} catch (IOException ex) {
 					// Error occurred while creating the File
+					Log.e(Constants.TAG,ex.getMessage());
 				}
 				// Continue only if the File was successfully created
 				if (photoFile != null) {
@@ -256,10 +257,18 @@ public class ImagePickActivity extends Activity {
 
 	private File createImageFile() throws IOException {
 		// Create an image file name
+		if (!Utils.isExternalStorageWritable())
+		{
+			Log.e(Constants.TAG,"External storage is not writable, abort image file creation");
+			return null;
+		}
+		
 		String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss")
 				.format(new Date());
 		String imageFileName = "PNG_" + timeStamp + "_";
-		File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);// Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+		File storageDir = new File (Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + File.separator + Utils.getMyAppName(this).replace(" ","")); //getExternalFilesDir(Environment.DIRECTORY_PICTURES);// Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+		if (!storageDir.exists())
+			storageDir.mkdirs();
 		File image = File.createTempFile(imageFileName, /* prefix */
 				".png", /* suffix */
 				storageDir /* directory */

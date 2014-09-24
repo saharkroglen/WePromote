@@ -150,6 +150,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/tileShareMore"
         android:layout_width="match_parent"
         android:layout_height="45dp"        
         android:layout_marginTop="2dp"        
@@ -158,7 +159,7 @@
         android:gravity="center"
         android:orientation="horizontal" >
 
-        <TextView            
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"

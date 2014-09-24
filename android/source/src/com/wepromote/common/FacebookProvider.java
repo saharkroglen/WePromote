@@ -219,7 +219,7 @@ public class FacebookProvider  {
     
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
     	
-    	if (requestCode == 99 && data != null && resultCode == Activity.RESULT_OK)
+    	if (requestCode == Constants.REQUEST_CODE_CAPTURE_IMAGE_FOR_FACEBOOK && data != null && resultCode == Activity.RESULT_OK)
 		{
     		Utils.showSpinner(mContext, true, "Uploading Photo...");
     		Bundle extras = data.getExtras();

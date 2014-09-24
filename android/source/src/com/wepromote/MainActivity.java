@@ -22,6 +22,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Point;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Display;
@@ -326,13 +327,15 @@ public class MainActivity extends  ActionBarActivity implements
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		// TODO Auto-generated method stub
-		super.onActivityResult(requestCode, resultCode, data);
+		
 //		System.gc();		
-		Fragment f = getSupportFragmentManager().findFragmentById(R.id.container);
-		if (f instanceof PostFragment) 
-		{
-		    ((PostFragment)f).onActivityResult(requestCode, resultCode, data);
-		}		
+//		Fragment f = getSupportFragmentManager().findFragmentById(R.id.container);
+//		if (f instanceof PostFragment) 
+//		{			}
+			super.onActivityResult(requestCode, resultCode, data);
+//		}		
+		 
+			
 //		FacebookProvider mFacebookProvider = new FacebookProvider();
 //
 //		mFacebookProvider.onActivityResult(requestCode, resultCode, data,dialogCallback);

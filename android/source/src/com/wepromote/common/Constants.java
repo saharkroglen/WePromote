@@ -11,7 +11,8 @@ public class Constants {
 	
 	public static final String 	EXTRA_PHOTO_PATH = "photoPath";
 	
-	
+	public static final int REQUEST_CODE_CAPTURE_IMAGE_FOR_FACEBOOK = 99;
+	public static final int REQUEST_CODE_CAPTURE_IMAGE_FOR_OTHERS = 98;
 	public static final String REQUEST_CODE = "requestCode";
 //	public static final String EXTRA_MENU_ITEM = "extra_menu_item";
 

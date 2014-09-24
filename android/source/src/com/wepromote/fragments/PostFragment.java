@@ -7,6 +7,7 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -18,6 +19,7 @@ import android.widget.GridView;
 import com.wepromote.R;
 import com.wepromote.WePromoteApplication;
 import com.wepromote.adapters.PostAdapter;
+import com.wepromote.common.Constants;
 import com.wepromote.common.FacebookProvider;
 import com.wepromote.common.Utils;
 import com.wepromote.dialogs.ShareDialog;
@@ -175,7 +177,38 @@ public class PostFragment extends Fragment implements ShareDialog.OnShareSelecte
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
-		mFacebookProvider.onActivityResult(requestCode, resultCode, data);
+		if (requestCode == Constants.REQUEST_CODE_CAPTURE_IMAGE_FOR_FACEBOOK)
+		{
+//			((PostFragment)f).onActivityResult(requestCode, resultCode, data);
+			mFacebookProvider.onActivityResult(requestCode, resultCode, data);
+		}
+		else if (requestCode == Constants.REQUEST_CODE_CAPTURE_IMAGE_FOR_OTHERS)
+		{
+			
+			if (data != null && data.getExtras() != null)
+			{
+				Bundle extras = data.getExtras();
+				String path = extras.getString("imagePath"); 
+				String campaignLink = extras.getString("campaignLink");
+			
+//				Intent sharingIntent = new Intent(Intent.ACTION_SEND);
+				Intent sharingIntent = new Intent(Intent.ACTION_SEND_MULTIPLE);
+				
+				sharingIntent.setType("image/*;text/plain");
+				sharingIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+//				sharingIntent.setType("text/plain");
+				
+				Uri screenshotUri = Uri.parse(path);
+				sharingIntent.putExtra(Intent.EXTRA_STREAM, screenshotUri);
+				
+				String message = String.format("Hi Man!\nI became a club member of %s and would like to share with you this benefit %s\n see ya..",
+								"Hilton", campaignLink);
+				sharingIntent.putExtra(Intent.EXTRA_TEXT, message);
+//				sharingIntent.putExtra(Intent.EXTRA_TITLE, "My Title");
+				startActivity(Intent.createChooser(sharingIntent,"Share image using"));
+			}
+		}
+		
 
 	}
 

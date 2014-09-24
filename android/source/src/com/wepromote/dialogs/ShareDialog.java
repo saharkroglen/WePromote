@@ -8,6 +8,7 @@ import com.wepromote.common.Constants;
 import com.wepromote.common.InternalMessage;
 import com.wepromote.common.Utils;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.Dialog;
@@ -44,9 +45,10 @@ public class ShareDialog extends Dialog implements
 	private ViewGroup btnShareInstagram;
 	private ViewGroup btnShareWhatsapp;
 	private String mCampaignID;
+	private ViewGroup btnShareMore;
 
 	public ShareDialog(Fragment context, OnShareSelectedListener listener,
-			int theme,String campaignID) {
+			int theme, String campaignID) {
 		super(context.getActivity(), theme);
 		mContext = context;
 		mCampaignID = campaignID;
@@ -75,6 +77,9 @@ public class ShareDialog extends Dialog implements
 		btnShareWhatsapp = (ViewGroup) findViewById(R.id.tileShareWhatsapp);
 		btnShareWhatsapp.setOnClickListener(this);
 
+		btnShareMore = (ViewGroup) findViewById(R.id.tileShareMore);
+		btnShareMore.setOnClickListener(this);
+
 		ViewGroup btnFacebookPost = (ViewGroup) findViewById(R.id.tileShareFacebook);
 		// btnFacebookPost.setTag(getCampaignPromoterObjectId(position));
 		btnFacebookPost.setOnClickListener(this);
@@ -95,45 +100,57 @@ public class ShareDialog extends Dialog implements
 
 	@Override
 	public void onClick(View v) {
-		String campaignLandingPageLink = String.format(
-				"http://wepromote.parseapp.com/campaigns/?cid=%s#/",
-				mCampaignID);
+		String message = null;
+		String campaignLandingPageLink = String.format("http://wepromote.parseapp.com/campaigns/?cid=%s#/",mCampaignID);
 		switch (v.getId()) {
 		case R.id.tileShareFacebook:
-			//Utils.showSpinner(mContext.getActivity(), true);
-			
-			Log.v(Constants.TAG, "campaign landing page: "
-					+ campaignLandingPageLink);
+			// Utils.showSpinner(mContext.getActivity(), true);
 
-			Intent i = new Intent(mContext.getActivity(),
+			Intent shareToFacebook = new Intent(mContext.getActivity(),
 					ImagePickActivity.class);
-			i.putExtra("campaignLink", campaignLandingPageLink);
-			i.putExtra("merchantName", campaignLandingPageLink);
-			mContext.startActivityForResult(i, 99);
+			shareToFacebook.putExtra("campaignLink", campaignLandingPageLink);
+			shareToFacebook.putExtra("merchantName", campaignLandingPageLink);
+			mContext.startActivityForResult(shareToFacebook, Constants.REQUEST_CODE_CAPTURE_IMAGE_FOR_FACEBOOK);
 			break;
 		case R.id.tileShareTwitter:
 
 			break;
+		case R.id.tileShareMore:
+			Intent shareToOtherApps = new Intent(mContext.getActivity(),
+					ImagePickActivity.class);
+			shareToOtherApps.putExtra("campaignLink", campaignLandingPageLink);
+			shareToOtherApps.putExtra("merchantName", campaignLandingPageLink);
+			mContext.startActivityForResult(shareToOtherApps, Constants.REQUEST_CODE_CAPTURE_IMAGE_FOR_OTHERS);
+			
+			
+
+			break;
+
 		case R.id.tileShareWhatsapp:
 
 			PackageManager pm = mContext.getActivity().getPackageManager();
-		    try {
+			try {
 
-		        Intent waIntent = new Intent(Intent.ACTION_SEND);
-		        waIntent.setType("text/plain");
-		        String text = String.format("Hi Man!\nI became a club member of %s and would like to share with you this benefit %s\n see ya..","Hilton", campaignLandingPageLink);
+				Intent waIntent = new Intent(Intent.ACTION_SEND);
+				waIntent.setType("text/plain");
+				message = String
+						.format("Hi Man!\nI became a club member of %s and would like to share with you this benefit %s\n see ya..",
+								"Hilton", campaignLandingPageLink);
 
-		        PackageInfo info = pm.getPackageInfo("com.whatsapp",PackageManager.GET_META_DATA);
-		        //Check if package exists or not. If not then code 
-		        //in catch block will be called
-		        waIntent.setPackage("com.whatsapp");
+				PackageInfo info = pm.getPackageInfo("com.whatsapp",
+						PackageManager.GET_META_DATA);
+				// Check if package exists or not. If not then code
+				// in catch block will be called
+				waIntent.setPackage("com.whatsapp");
 
-		            waIntent.putExtra(Intent.EXTRA_TEXT, text);
-		            mContext.getActivity().startActivity(Intent.createChooser(waIntent, "Share with"));
+				waIntent.putExtra(Intent.EXTRA_TEXT, message);
+				mContext.getActivity().startActivity(
+						Intent.createChooser(waIntent, "Share with"));
 
-		   } catch (NameNotFoundException e) {		        
-		        Utils.showToast(mContext.getActivity(), "WhatsApp not Installed");
-		   }  
+			} catch (NameNotFoundException e) {
+				Utils.showToast(mContext.getActivity(),
+						"WhatsApp not Installed");
+			}
 			break;
 		}
 		ShareDialog.this.dismiss();
