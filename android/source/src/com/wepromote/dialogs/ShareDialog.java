@@ -137,8 +137,7 @@ public class ShareDialog extends Dialog implements
 						.format("Hi Man!\nI became a club member of %s and would like to share with you this benefit %s\n see ya..",
 								"Hilton", campaignLandingPageLink);
 
-				PackageInfo info = pm.getPackageInfo("com.whatsapp",
-						PackageManager.GET_META_DATA);
+				PackageInfo info = pm.getPackageInfo("com.whatsapp",PackageManager.GET_META_DATA);
 				// Check if package exists or not. If not then code
 				// in catch block will be called
 				waIntent.setPackage("com.whatsapp");

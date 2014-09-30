@@ -1,5 +1,6 @@
 package com.wepromote.fragments;
 
+import java.io.File;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
@@ -194,15 +195,22 @@ public class PostFragment extends Fragment implements ShareDialog.OnShareSelecte
 //				Intent sharingIntent = new Intent(Intent.ACTION_SEND);
 				Intent sharingIntent = new Intent(Intent.ACTION_SEND_MULTIPLE);
 				
-				sharingIntent.setType("image/*;text/plain");
+				sharingIntent.setType("text/plain;image/*");
+//				sharingIntent.setType("image/*");
 				sharingIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
 //				sharingIntent.setType("text/plain");
 				
-				Uri screenshotUri = Uri.parse(path);
-				sharingIntent.putExtra(Intent.EXTRA_STREAM, screenshotUri);
+//				Uri screenshotUri = Uri.parse(path);
+//				sharingIntent.putExtra(Intent.EXTRA_STREAM, screenshotUri);
+				File saveFile = new File(path);
+				ArrayList<Uri> SavedImages = new ArrayList<Uri>();
+				SavedImages.add(Uri.fromFile(saveFile));
+				sharingIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, SavedImages);
 				
-				String message = String.format("Hi Man!\nI became a club member of %s and would like to share with you this benefit %s\n see ya..",
-								"Hilton", campaignLink);
+				sharingIntent.putExtra(android.content.Intent.EXTRA_EMAIL,new String[] { "saharkroglen@gmail.com" });
+				sharingIntent.putExtra(Intent.EXTRA_SUBJECT, "Try it out !");
+				String message = String.format("Hi Man!\nI became a club member of %s and would like to share with you this benefit %s\n see ya..","Hilton", campaignLink);
+//				String message = String.format("blabla");
 				sharingIntent.putExtra(Intent.EXTRA_TEXT, message);
 //				sharingIntent.putExtra(Intent.EXTRA_TITLE, "My Title");
 				startActivity(Intent.createChooser(sharingIntent,"Share image using"));

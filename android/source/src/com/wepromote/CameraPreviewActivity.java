@@ -433,7 +433,7 @@ public class CameraPreviewActivity extends Activity /*
 		String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss")
 				.format(new Date());
 		String imageFileName = "PNG_" + timeStamp + "_";
-		File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);// Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+		File storageDir =  Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
 		File image = File.createTempFile(imageFileName, /* prefix */
 				".png", /* suffix */
 				storageDir /* directory */
