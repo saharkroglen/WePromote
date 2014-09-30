@@ -15,6 +15,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
 import java.lang.reflect.Method;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
@@ -213,6 +215,34 @@ public class Utils {
 			return false;
 		}
 
+	}
+	
+	public static File createImageFile(Context c) throws IOException {
+		// Create an image file name
+		if (!Utils.isExternalStorageWritable())
+		{
+			Log.e(Constants.TAG,"External storage is not writable, abort image file creation");
+			return null;
+		}
+		
+		String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss")
+				.format(new Date());
+		String imageFileName = "PNG_" + timeStamp + "_";
+		//File storageDir = new File (Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + File.separator + Utils.getMyAppName(this).replace(" ","")); //getExternalFilesDir(Environment.DIRECTORY_PICTURES);// Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+		File storageDir = Utils.getAppImageStoragePath(c);
+		if (!storageDir.exists())
+			storageDir.mkdirs();
+		File image = File.createTempFile(imageFileName, /* prefix */
+				".png", /* suffix */
+				storageDir /* directory */
+		);
+
+		// Save a file: path for use with ACTION_VIEW intents
+//		mCurrentPhotoPath = "file:" + image.getAbsolutePath();
+		return image;
+	}
+	public static File getAppImageStoragePath(Context c) {
+		return new File(String.format("%s/.%s", Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),Utils.getMyAppName(c).replace(" ","")));
 	}
 	
 	class SavePhotoByteArrayTask extends AsyncTask<byte[], Void, Void> {

@@ -35,7 +35,7 @@ public class ImagePickActivity extends Activity {
 	static final int REQUEST_IMAGE_CAPTURE = 2;
 	private Bitmap bitmap;
 	private ImageView imageView;
-	private String mCurrentPhotoPath;
+//	private String mCurrentPhotoPath;
 	private String mCampaignLink;
 
 	@Override
@@ -143,7 +143,7 @@ public class ImagePickActivity extends Activity {
 		// Create the File where the photo should go
 		File photoFile = null;
 		try {
-			photoFile = createImageFile();
+			photoFile = Utils.createImageFile(this);
 
 		} catch (IOException ex) {
 			// Error occurred while creating the File
@@ -217,16 +217,17 @@ public class ImagePickActivity extends Activity {
 						UPLOAD_IMAGE_WIDTH, UPLOAD_IMAGE_HEIGHT,
 						ScalingLogic.FIT); // BitmapFactory.decodeStream(stream);
 
-				File photoFile = null;
+				File imageFile = null;
 				try {
-					photoFile = createImageFile();
+					imageFile = Utils.createImageFile(this);
+//					mCurrentPhotoPath = "file:" + photoFile.getAbsolutePath();
 				} catch (IOException ex) {
 					// Error occurred while creating the File
 					Log.e(Constants.TAG,ex.getMessage());
 				}
 				// Continue only if the File was successfully created
-				if (photoFile != null) {
-					mPhotoPath = Uri.fromFile(photoFile).getPath();
+				if (imageFile != null) {
+					mPhotoPath = Uri.fromFile(imageFile).getPath();
 					// ScalingUtilities.saveImageToStorage(mPhotoUri,bitmap);
 					Utils.saveBitmapToFile(bitmap, mPhotoPath);
 				}
@@ -255,27 +256,5 @@ public class ImagePickActivity extends Activity {
 		finish();
 	}
 
-	private File createImageFile() throws IOException {
-		// Create an image file name
-		if (!Utils.isExternalStorageWritable())
-		{
-			Log.e(Constants.TAG,"External storage is not writable, abort image file creation");
-			return null;
-		}
-		
-		String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss")
-				.format(new Date());
-		String imageFileName = "PNG_" + timeStamp + "_";
-		File storageDir = new File (Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + File.separator + Utils.getMyAppName(this).replace(" ","")); //getExternalFilesDir(Environment.DIRECTORY_PICTURES);// Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-		if (!storageDir.exists())
-			storageDir.mkdirs();
-		File image = File.createTempFile(imageFileName, /* prefix */
-				".png", /* suffix */
-				storageDir /* directory */
-		);
-
-		// Save a file: path for use with ACTION_VIEW intents
-		mCurrentPhotoPath = "file:" + image.getAbsolutePath();
-		return image;
-	}
+	
 }

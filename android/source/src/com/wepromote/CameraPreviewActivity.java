@@ -403,9 +403,9 @@ public class CameraPreviewActivity extends Activity /*
 			Thread tGetPic = new Thread(new Runnable() {
 				public void run() {
 					Log.v(Constants.TAG, "take picture");
-					File photoFile = null;
+					File imageFile = null;
 					try {
-						photoFile = createImageFile();
+						imageFile = Utils.createImageFile(CameraPreviewActivity.this); 
 					} catch (IOException ex) {
 						// Error occurred while creating the File
 					}
@@ -428,21 +428,22 @@ public class CameraPreviewActivity extends Activity /*
 		}
 	};
 
-	private File createImageFile() throws IOException {
-		// Create an image file name
-		String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss")
-				.format(new Date());
-		String imageFileName = "PNG_" + timeStamp + "_";
-		File storageDir =  Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-		File image = File.createTempFile(imageFileName, /* prefix */
-				".png", /* suffix */
-				storageDir /* directory */
-		);
-
-		// Save a file: path for use with ACTION_VIEW intents
-//		mCurrentPhotoPath = "file:" + image.getAbsolutePath();
-		return image;
-	}
+//	private File createImageFile() throws IOException {
+//		// Create an image file name
+//		String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss")
+//				.format(new Date());
+//		String imageFileName = "PNG_" + timeStamp + "_";
+//		File storageDir = Utils.getAppImageStoragePath(this);
+//		File image = File.createTempFile(imageFileName, /* prefix */
+//				".png", /* suffix */
+//				storageDir /* directory */
+//		);
+//
+//		// Save a file: path for use with ACTION_VIEW intents
+////		mCurrentPhotoPath = "file:" + image.getAbsolutePath();
+//		return image;
+//	}
+	
 	// just to close the app and release resources.
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
