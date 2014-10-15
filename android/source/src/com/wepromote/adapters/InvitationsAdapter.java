@@ -47,9 +47,9 @@ public class InvitationsAdapter extends BaseAdapter implements OnClickListener{
 	    	convertView = inflater.inflate(R.layout.item_invitation, parent, false);	
 	    }
 	
-	    TextView btnAddGame = (TextView) convertView.findViewById(R.id.btnConfirm);
-	    btnAddGame.setTag(getItem(position).getCampaignID());
-	    btnAddGame.setOnClickListener(this);
+	    TextView btnConfirmInvitation = (TextView) convertView.findViewById(R.id.btnConfirm);
+	    btnConfirmInvitation.setTag(getItem(position).getCampaignID());
+	    btnConfirmInvitation.setOnClickListener(this);
 	    
 	    TextView btnDismiss = (TextView) convertView.findViewById(R.id.txtDismiss);
 	    btnDismiss.setTag(getItem(position).getCampaignID());

@@ -13,6 +13,7 @@ public class Constants {
 	
 	public static final int REQUEST_CODE_CAPTURE_IMAGE_FOR_FACEBOOK = 99;
 	public static final int REQUEST_CODE_CAPTURE_IMAGE_FOR_OTHERS = 98;
+	public static final int REQUEST_CODE_SCAN_QR = 97;
 	public static final String REQUEST_CODE = "requestCode";
 //	public static final String EXTRA_MENU_ITEM = "extra_menu_item";
 

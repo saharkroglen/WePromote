@@ -335,6 +335,20 @@ public class MainActivity extends  ActionBarActivity implements
 			super.onActivityResult(requestCode, resultCode, data);
 //		}		
 		 
+			if (requestCode == Constants.REQUEST_CODE_SCAN_QR) {
+	              if (resultCode == RESULT_OK) {
+	                  
+	                 String contents = data.getStringExtra("SCAN_RESULT");
+	                 String format = data.getStringExtra("SCAN_RESULT_FORMAT");
+	                 Utils.showToast(this, String.format("format: %s, Content: %s", format,contents));
+	              
+	                 // Handle successful scan
+	                                           
+	              } else if (resultCode == RESULT_CANCELED) {
+	                 // Handle cancel
+	                 Log.i("App","Scan unsuccessful");
+	              }
+	         }
 			
 //		FacebookProvider mFacebookProvider = new FacebookProvider();
 //

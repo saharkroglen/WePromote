@@ -12,6 +12,7 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -32,6 +33,7 @@ import com.readystatesoftware.viewbadger.BadgeView;
 import com.wepromote.MainActivity;
 import com.wepromote.R;
 import com.wepromote.WePromoteApplication;
+import com.wepromote.common.Constants;
 import com.wepromote.common.Utils;
 
 public class HomeFragment extends Fragment implements OnClickListener{
@@ -172,41 +174,47 @@ public class HomeFragment extends Fragment implements OnClickListener{
 			((MainActivity) mContext).openInvitations();
 			break;
 		case R.id.tileMembership:
-//			Utils.slideToLeft(mLogo, View.VISIBLE,2000,true,WePromoteApplication.getScreenDimensions().x,0);
-			ParseObject c = new ParseObject("campaign1");
-			c.put("name", "hilton");
-			c.put("merchantID",WePromoteApplication.getUser().getParseUser());
-			try {
-				c.save();
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-			ParseQuery<ParseObject> innerQuery = ParseQuery.getQuery("User");
-			//innerQuery.whereEqualTo("email", "yosskoss@gmail.com");
-			innerQuery.whereExists("password");
-			
-						
-			ParseQuery<ParseObject> query = ParseQuery.getQuery("campaign1");
-//			query.orderByDescending("createdAt");
-//			query.setLimit(10);
-			query.include("User");
-			//query.whereExists("merchantID");
-			query.whereMatchesQuery("merchantID", innerQuery);
-			query.findInBackground(new FindCallback<ParseObject>() {
-				  public void done(List<ParseObject> commentList, ParseException e) {
-				    // commentList now contains the last ten comments, and the "post"
-				    // field has been populated. For example:
-				    for (ParseObject comment : commentList) {
-				      // This does not require a network access.
-				      ParseObject user = comment.getParseObject("merchantID");
-				      String email = user.getString("email");
-				      Log.d("user", "retrieved a related post");
-				    }
-				  }
-				});			
+//			testParseJoinQuery();
+			Intent intent = new Intent("com.wepromote.SCAN_QR");
+            intent.putExtra("SCAN_MODE", "QR_CODE_MODE");
+            startActivityForResult(intent, Constants.REQUEST_CODE_SCAN_QR);
 			break;
 		}		
+	}
+
+	private void testParseJoinQuery() {
+		ParseObject c = new ParseObject("campaign1");
+		c.put("name", "hilton");
+		c.put("merchantID",WePromoteApplication.getUser().getParseUser());
+		try {
+			c.save();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		ParseQuery<ParseObject> innerQuery = ParseQuery.getQuery("User");
+		//innerQuery.whereEqualTo("email", "yosskoss@gmail.com");
+		innerQuery.whereExists("password");
+		
+					
+		ParseQuery<ParseObject> query = ParseQuery.getQuery("campaign1");
+//			query.orderByDescending("createdAt");
+//			query.setLimit(10);
+		query.include("User");
+		//query.whereExists("merchantID");
+		query.whereMatchesQuery("merchantID", innerQuery);
+		query.findInBackground(new FindCallback<ParseObject>() {
+			  public void done(List<ParseObject> commentList, ParseException e) {
+			    // commentList now contains the last ten comments, and the "post"
+			    // field has been populated. For example:
+			    for (ParseObject comment : commentList) {
+			      // This does not require a network access.
+			      ParseObject user = comment.getParseObject("merchantID");
+			      String email = user.getString("email");
+			      Log.d("user", "retrieved a related post");
+			    }
+			  }
+			});
 	}
 }
