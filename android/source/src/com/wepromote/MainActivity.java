@@ -1,6 +1,5 @@
 package com.wepromote;
 
-
 import com.facebook.widget.FacebookDialog;
 import com.wepromote.broadcast_receivers.ParseCustomReceiver;
 import com.wepromote.common.Constants;
@@ -32,16 +31,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.TextView;
-import android.support.v4.widget.DrawerLayout; 
+import android.support.v4.widget.DrawerLayout;
 
-public class MainActivity extends  ActionBarActivity implements 
+public class MainActivity extends ActionBarActivity implements
 		NavigationDrawerFragment.NavigationDrawerCallbacks {
 
 	public static final int MENU_ITEM_HOME = 0;
 	public static final int MENU_ITEM_INVITATIONS = 1;
 	public static final int MENU_ITEM_LOGOUT = 2;
 	public static final int MENU_ITEM_PREFS = 3;
-	
+
 	public static final int API = android.os.Build.VERSION.SDK_INT;
 	/**
 	 * Fragment managing the behaviors, interactions and presentation of the
@@ -60,17 +59,19 @@ public class MainActivity extends  ActionBarActivity implements
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-//		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
-		setContentView(R.layout.activity_main);		
-		
-		Utils.setCustomFontToViewGroup(getWindow().getDecorView().getRootView(),Utils.FONT_OSWALD_REGULAR);
-		
+		// requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
+		setContentView(R.layout.activity_main);
+
+		Utils.setCustomFontToViewGroup(
+				getWindow().getDecorView().getRootView(),
+				Utils.FONT_OSWALD_REGULAR);
+
 		mNavigationDrawerFragment = (NavigationDrawerFragment) getSupportFragmentManager()
 				.findFragmentById(R.id.navigation_drawer);
 		refreshTitle();
-		
-		mProgressLayout = (ViewGroup)findViewById(R.id.progressLayout);
-		mSpinnerText = (TextView)findViewById(R.id.txtProgressTitle);
+
+		mProgressLayout = (ViewGroup) findViewById(R.id.progressLayout);
+		mSpinnerText = (TextView) findViewById(R.id.txtProgressTitle);
 
 		// Set up the drawer.
 		DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -82,103 +83,99 @@ public class MainActivity extends  ActionBarActivity implements
 		} else {
 			Log.v(Constants.TAG, "Already logged in");
 		}
-		
+
 		LocalBroadcastManager.getInstance(this).registerReceiver(
-				mMessageReceiver, new IntentFilter(Utils.INTERNAL_MESSAGE_INTENT));
-		
-		
+				mMessageReceiver,
+				new IntentFilter(Utils.INTERNAL_MESSAGE_INTENT));
+
 		String action = this.getIntent().getAction();
-		if (action != null && action.equals(ParseCustomReceiver.ACTION_INVITE_PROMOTER))
-		{
-//			openInvitations();
-			//mNavigationDrawerFragment.selectItem(1);
-//			Utils.sendMessage(WePromoteApplication.getContext(),new InternalMessage(InternalMessage.MESSAGE_SELECT_MENU_ITEM,String.valueOf(MENU_ITEM_INVITATIONS)));
+		if (action != null
+				&& action.equals(ParseCustomReceiver.ACTION_INVITE_PROMOTER)) {
+			// openInvitations();
+			// mNavigationDrawerFragment.selectItem(1);
+			// Utils.sendMessage(WePromoteApplication.getContext(),new
+			// InternalMessage(InternalMessage.MESSAGE_SELECT_MENU_ITEM,String.valueOf(MENU_ITEM_INVITATIONS)));
 			openInvitations();
-			Utils.dismissNotification(this, Constants.NOTIFICATION_INVITATION_ID);
-		}
-		else
-		{
-			Fragment f = getSupportFragmentManager().findFragmentById(R.id.container);
+			Utils.dismissNotification(this,
+					Constants.NOTIFICATION_INVITATION_ID);
+		} else {
+			Fragment f = getSupportFragmentManager().findFragmentById(
+					R.id.container);
 			if (f == null)
 				openHome();
-			
-//			Utils.sendMessage(WePromoteApplication.getContext(),new InternalMessage(InternalMessage.MESSAGE_SELECT_MENU_ITEM,String.valueOf(MENU_ITEM_HOME)));
-			
+
+			// Utils.sendMessage(WePromoteApplication.getContext(),new
+			// InternalMessage(InternalMessage.MESSAGE_SELECT_MENU_ITEM,String.valueOf(MENU_ITEM_HOME)));
+
 		}
-		
-//		Intent i = new Intent(this,ImagePickActivity.class);
-//		startActivity(i);
-		
+
+		// Intent i = new Intent(this,ImagePickActivity.class);
+		// startActivity(i);
+
 		initScreenSize();
 	}
+
 	private void initScreenSize() {
-		Display display = getWindowManager().getDefaultDisplay(); 
+		Display display = getWindowManager().getDefaultDisplay();
 		int width = display.getWidth();
 		int height = display.getHeight();
-		WePromoteApplication.setScreenDimensions(new Point(width,height));
+		WePromoteApplication.setScreenDimensions(new Point(width, height));
 	}
-
-	
 
 	private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
 		@Override
-		public void onReceive(Context context, Intent intent) {			
-			handleInternalMessage(Utils.getMessageFromIntent(intent));			
+		public void onReceive(Context context, Intent intent) {
+			handleInternalMessage(Utils.getMessageFromIntent(intent));
 		}
 	};
-	
+
 	private void handleInternalMessage(InternalMessage msg) {
 		switch (msg.messageID) {
 		case InternalMessage.MESSAGE_LOGIN_SUCCESSFUL:
-				
+
 			break;
 		case InternalMessage.MESSAGE_LOGOUT:
 			logout();
 			openHome();
 			break;
-//		case InternalMessage.MESSAGE_SELECT_MENU_ITEM:
-//			Integer menuID = Integer.valueOf(msg.messageText);
-//			if (menuID != null)
-//			{
-//				mNavigationDrawerFragment.setMenuChecked(menuID,true);
-//				handleMenuItemSelection(menuID);
-//			}	
-//			else
-//			{
-//				mNavigationDrawerFragment.setMenuChecked(MENU_ITEM_HOME,true);
-//				handleMenuItemSelection(MENU_ITEM_HOME);
-//			}
-//			break;
+		// case InternalMessage.MESSAGE_SELECT_MENU_ITEM:
+		// Integer menuID = Integer.valueOf(msg.messageText);
+		// if (menuID != null)
+		// {
+		// mNavigationDrawerFragment.setMenuChecked(menuID,true);
+		// handleMenuItemSelection(menuID);
+		// }
+		// else
+		// {
+		// mNavigationDrawerFragment.setMenuChecked(MENU_ITEM_HOME,true);
+		// handleMenuItemSelection(MENU_ITEM_HOME);
+		// }
+		// break;
 		case InternalMessage.MESSAGE_SHOW_SPINNER:
 			boolean showSpinner = Boolean.valueOf(msg.messageText);
-			//setProgressBarIndeterminateVisibility(showSpinner);
-			if (showSpinner)
-			{
-				if (msg.additionalContent != null)
-				{
+			// setProgressBarIndeterminateVisibility(showSpinner);
+			if (showSpinner) {
+				if (msg.additionalContent != null) {
 					mSpinnerText.setText(msg.additionalContent);
-				}
-				else
-				{
-					mSpinnerText.setText("Loading...");	
+				} else {
+					mSpinnerText.setText("Loading...");
 				}
 				mProgressLayout.setVisibility(View.VISIBLE);
 				Log.v(Constants.TAG, String.format("Show spinner"));
-			}
-			else
-			{
+			} else {
 				mProgressLayout.setVisibility(View.GONE);
 				Log.v(Constants.TAG, String.format("Hide spinner"));
 			}
 			break;
 
-		
 		}
 	}
+
 	private void logout() {
 		WePromoteApplication.getUser().logout();
 		startSetupWizard();
 	}
+
 	private void startSetupWizard() {
 		Intent i = new Intent(this, SetupWizardActivity.class);
 		startActivity(i);
@@ -191,12 +188,13 @@ public class MainActivity extends  ActionBarActivity implements
 	}
 
 	@Override
-	public void onNavigationDrawerItemSelected(int position,DrawerMenuItem drawerMenuItem) {
+	public void onNavigationDrawerItemSelected(int position,
+			DrawerMenuItem drawerMenuItem) {
 		// update the main content by replacing fragments
-//		FragmentManager fragmentManager = getSupportFragmentManager();
-		
+		// FragmentManager fragmentManager = getSupportFragmentManager();
+
 		handleMenuItemSelection(drawerMenuItem.getMenuID());
-		//drawerMenuItem.doAction();		
+		// drawerMenuItem.doAction();
 	}
 
 	private void handleMenuItemSelection(final int menuID) {
@@ -214,23 +212,22 @@ public class MainActivity extends  ActionBarActivity implements
 		}
 	}
 
-	public void openInvitations()
-	{
+	public void openInvitations() {
 		FragmentManager fragmentManager = getSupportFragmentManager();
 		Fragment invitationsFrag = new InvitationsFragment();
 		Bundle args = new Bundle();
 		args.putString(WebViewFragment.ARG_PROFILE_NAME, "todo");
 		invitationsFrag.setArguments(args);
 
-		fragmentManager.beginTransaction().replace(R.id.container, invitationsFrag)
+		fragmentManager.beginTransaction()
+				.replace(R.id.container, invitationsFrag)
 				.commitAllowingStateLoss();
-		
+
 	}
-	
-	public void openHome()
-	{
-		FragmentManager fragmentManager = getSupportFragmentManager(); 
-		Fragment homeFrag = new HomeFragment(); 
+
+	public void openHome() {
+		FragmentManager fragmentManager = getSupportFragmentManager();
+		Fragment homeFrag = new HomeFragment();
 		Bundle args = new Bundle();
 		args.putString(WebViewFragment.ARG_PROFILE_NAME, "todo");
 		homeFrag.setArguments(args);
@@ -238,8 +235,8 @@ public class MainActivity extends  ActionBarActivity implements
 		fragmentManager.beginTransaction().replace(R.id.container, homeFrag)
 				.commitAllowingStateLoss();
 	}
-	public void openPost()
-	{
+
+	public void openPost() {
 		FragmentManager fragmentManager = getSupportFragmentManager();
 		Fragment postFrag = new PostFragment();
 		Bundle args = new Bundle();
@@ -263,6 +260,7 @@ public class MainActivity extends  ActionBarActivity implements
 	public void onFragmentAttached(String profileName) {
 		refreshTitle();
 	}
+
 	private void refreshTitle() {
 		mTitle = getActivityTitle();
 		restoreActionBar();
@@ -301,18 +299,17 @@ public class MainActivity extends  ActionBarActivity implements
 	@Override
 	public void onBackPressed() {
 		// TODO Auto-generated method stub
-		//super.onBackPressed();
-		Fragment f = getSupportFragmentManager().findFragmentById(R.id.container);
-		if (f instanceof HomeFragment) 
-		{
-		    finish();
-		}
-		else
-		{
-			Utils.showSpinner(WePromoteApplication.getContext(),false);
+		// super.onBackPressed();
+		Fragment f = getSupportFragmentManager().findFragmentById(
+				R.id.container);
+		if (f instanceof HomeFragment) {
+			finish();
+		} else {
+			Utils.showSpinner(WePromoteApplication.getContext(), false);
 			openHome();
 		}
 	}
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle action bar item clicks here. The action bar will
@@ -324,45 +321,43 @@ public class MainActivity extends  ActionBarActivity implements
 		}
 		return super.onOptionsItemSelected(item);
 	}
+
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		// TODO Auto-generated method stub
-		
-//		System.gc();		
-//		Fragment f = getSupportFragmentManager().findFragmentById(R.id.container);
-//		if (f instanceof PostFragment) 
-//		{			}
-			super.onActivityResult(requestCode, resultCode, data);
-//		}		
-		 
-			if (requestCode == Constants.REQUEST_CODE_SCAN_QR) {
-	              if (resultCode == RESULT_OK) {
-	                  
-	                 String contents = data.getStringExtra("SCAN_RESULT");
-	                 String format = data.getStringExtra("SCAN_RESULT_FORMAT");
-	                 Utils.showToast(this, String.format("format: %s, Content: %s", format,contents));
-	              
-	                 // Handle successful scan
-	                                           
-	              } else if (resultCode == RESULT_CANCELED) {
-	                 // Handle cancel
-	                 Log.i("App","Scan unsuccessful");
-	              }
-	         }
-			
-//		FacebookProvider mFacebookProvider = new FacebookProvider();
-//
-//		mFacebookProvider.onActivityResult(requestCode, resultCode, data,dialogCallback);
-	}
-	 private FacebookDialog.Callback dialogCallback = new FacebookDialog.Callback() {
-	        @Override
-	        public void onError(FacebookDialog.PendingCall pendingCall, Exception error, Bundle data) {
-	            Log.d("HelloFacebook", String.format("Error: %s", error.toString()));
-	        }
 
-	        @Override
-	        public void onComplete(FacebookDialog.PendingCall pendingCall, Bundle data) {
-	            Log.d("HelloFacebook", "Success!");
-	        }
-	    };
+		// System.gc();
+		// Fragment f =
+		// getSupportFragmentManager().findFragmentById(R.id.container);
+		// if (f instanceof PostFragment)
+		// { }
+		super.onActivityResult(requestCode, resultCode, data);
+		// }
+
+		if (data != null && data.getExtras() != null) {
+			String contents = data.getStringExtra("SCAN_RESULT");
+			String format = data.getStringExtra("SCAN_RESULT_FORMAT");
+			Utils.showToast(this,
+					String.format("format: %s, Content: %s", format, contents));
+		}
+	}
+
+	// FacebookProvider mFacebookProvider = new FacebookProvider();
+	//
+	// mFacebookProvider.onActivityResult(requestCode, resultCode,
+	// data,dialogCallback);
+
+	private FacebookDialog.Callback dialogCallback = new FacebookDialog.Callback() {
+		@Override
+		public void onError(FacebookDialog.PendingCall pendingCall,
+				Exception error, Bundle data) {
+			Log.d("HelloFacebook", String.format("Error: %s", error.toString()));
+		}
+
+		@Override
+		public void onComplete(FacebookDialog.PendingCall pendingCall,
+				Bundle data) {
+			Log.d("HelloFacebook", "Success!");
+		}
+	};
 }

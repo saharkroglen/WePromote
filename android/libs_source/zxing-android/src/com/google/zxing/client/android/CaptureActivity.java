@@ -36,6 +36,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.preference.PreferenceManager;
+import android.provider.SyncStateContract.Constants;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.KeyEvent;
@@ -78,7 +79,9 @@ import com.google.zxing.client.android.share.ShareActivity;
  */
 public final class CaptureActivity extends Activity implements SurfaceHolder.Callback {
 
-  private static final String TAG = CaptureActivity.class.getSimpleName();
+public static final String EXTRA_QRCODE_CONTENT = "qrcode_content";
+
+private static final String TAG = CaptureActivity.class.getSimpleName();
 
   private static final long DEFAULT_INTENT_RESULT_DURATION_MS = 1500L;
   private static final long BULK_MODE_SCAN_DELAY_MS = 1000L;
@@ -195,6 +198,10 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
       String action = intent.getAction();
       String dataString = intent.getDataString();
 
+
+   	  if (Intents.Scan_customized_for_wepromote.ACTION.equals(action)) {
+   		source = IntentSource.SCAN_FOR_WEPROMOTE;
+   	  }
       if (Intents.Scan.ACTION.equals(action)) {
 
         // Scan the formats the intent requested, and return the result to the calling activity.
@@ -397,7 +404,22 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
   public void handleDecode(Result rawResult, Bitmap barcode, float scaleFactor) {
     inactivityTimer.onActivity();
     lastResult = rawResult;
+    
     ResultHandler resultHandler = ResultHandlerFactory.makeResultHandler(this, rawResult);
+    
+//    //sahar - shortcut to returning the scanned code instead of handling scanning by the library
+//    if (rawResult != null && rawResult.getText().length()>0)
+//    {
+////    	Intent intent = new Intent();
+////        intent.putExtra(EXTRA_QRCODE_CONTENT, rawResult.getText());
+////        setResult(RESULT_OK, intent);
+////        finish();
+//    	handleDecodeExternally(rawResult, resultHandler, barcode);
+//        return;
+//    }
+//    //sahar - end
+//    
+//    
 
     boolean fromLiveScan = barcode != null;
     if (fromLiveScan) {
@@ -408,6 +430,14 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
     }
 
     switch (source) {
+    case SCAN_FOR_WEPROMOTE:
+//    	handleDecodeExternally(rawResult, resultHandler, barcode);
+    	Intent intent = new Intent();
+    	intent.putExtra(Intents.Scan.RESULT, rawResult.toString());
+        intent.putExtra(Intents.Scan.RESULT_FORMAT, rawResult.getBarcodeFormat().toString());
+	    setResult(RESULT_OK, intent);
+	    finish();
+    	break;
       case NATIVE_APP_INTENT:
       case PRODUCT_SEARCH_LINK:
         handleDecodeExternally(rawResult, resultHandler, barcode);
@@ -587,7 +617,7 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
       ClipboardInterface.setText(text, this);
     }
 
-    if (source == IntentSource.NATIVE_APP_INTENT) {
+    if (source == IntentSource.NATIVE_APP_INTENT || source == IntentSource.SCAN_FOR_WEPROMOTE) {
       
       // Hand back whatever action they requested - this can be changed to Intents.Scan.ACTION when
       // the deprecated intent is retired.

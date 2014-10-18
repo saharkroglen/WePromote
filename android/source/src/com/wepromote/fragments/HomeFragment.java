@@ -6,6 +6,9 @@ import java.util.List;
 import android.R.color;
 import android.annotation.TargetApi;
 
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.client.android.Contents;
+import com.google.zxing.client.android.Intents;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -60,6 +63,7 @@ public class HomeFragment extends Fragment implements OnClickListener{
 	private View mImgRewards;
 	private BadgeView mInvitationBadge;
 	private BadgeView mRewardsBadge;
+	private ViewGroup mTileRewards;
 	public HomeFragment () {
 	
 	}
@@ -123,6 +127,10 @@ public class HomeFragment extends Fragment implements OnClickListener{
 		
 		mTileCampaignMembership = (ViewGroup)rootView.findViewById(R.id.tileMembership);
 		mTileCampaignMembership.setOnClickListener(this);
+		
+		mTileRewards = (ViewGroup)rootView.findViewById(R.id.tileRewards);
+		mTileRewards.setOnClickListener(this);
+		
 //		mGrid = (GridView) rootView.findViewById(R.id.gridAddedPackages);
 		
 		mLogo = (ImageView)rootView.findViewById(R.id.imgLogoPlaceholder);
@@ -175,11 +183,33 @@ public class HomeFragment extends Fragment implements OnClickListener{
 			break;
 		case R.id.tileMembership:
 //			testParseJoinQuery();
-			Intent intent = new Intent("com.wepromote.SCAN_QR");
-            intent.putExtra("SCAN_MODE", "QR_CODE_MODE");
-            startActivityForResult(intent, Constants.REQUEST_CODE_SCAN_QR);
+			
+			scanBarcode();			
+//			generateBarcode("http://blabla.com");
+            
+			break;
+		case R.id.tileRewards:
+			
+			generateBarcode("http://blabla.com");
+	        
 			break;
 		}		
+		
+	}
+
+	private void generateBarcode(String content) {
+		Intent intent = new Intent("com.google.zxing.client.android.ENCODE");			
+		intent.putExtra("ENCODE_FORMAT", "QR_CODE");		
+		intent.putExtra("ENCODE_DATA", content);
+		intent.putExtra("ENCODE_TYPE", "TEXT_TYPE" );
+		intent.putExtra("ENCODE_SHOW_CONTENTS", false );
+		startActivity(intent);
+	}
+
+	private void scanBarcode() {
+		Intent intent = new Intent("com.wepromote.SCAN_QR");
+		intent.putExtra("SCAN_MODE", "QR_CODE_MODE");
+		startActivityForResult(intent, Constants.REQUEST_CODE_SCAN_QR);
 	}
 
 	private void testParseJoinQuery() {

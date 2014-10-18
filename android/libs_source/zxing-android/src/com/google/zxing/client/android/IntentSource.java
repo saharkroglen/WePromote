@@ -18,9 +18,6 @@ package com.google.zxing.client.android;
 
 enum IntentSource {
 
-  NATIVE_APP_INTENT,
-  PRODUCT_SEARCH_LINK,
-  ZXING_LINK,
-  NONE
+	SCAN_FOR_WEPROMOTE, NATIVE_APP_INTENT, PRODUCT_SEARCH_LINK, ZXING_LINK, NONE
 
 }

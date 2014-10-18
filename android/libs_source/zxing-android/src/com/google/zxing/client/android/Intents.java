@@ -26,6 +26,13 @@ public final class Intents {
   private Intents() {
   }
 
+  
+  public static final class Scan_customized_for_wepromote {
+	    /**
+	     * Send this intent to open the scan specifically for wepromote project
+	     */
+	    public static final String ACTION = "com.wepromote.SCAN_QR";
+  }
   public static final class Scan {
     /**
      * Send this intent to open the Barcodes app in scanning mode, find a barcode, and return
