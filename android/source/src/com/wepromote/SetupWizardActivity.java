@@ -1,7 +1,6 @@
 package com.wepromote;
 
 import com.parse.ParseFacebookUtils;
-import com.wepromote.common.Constants;
 import com.wepromote.common.InternalMessage;
 import com.wepromote.common.Utils;
 import com.wepromote.controls.PagingControllableViewPager;
@@ -9,6 +8,7 @@ import com.wepromote.fragments.SetupFragmentBase;
 import com.wepromote.fragments.SetupWizardStep1Fragment;
 import com.wepromote.fragments.SetupWizardStep2Fragment;
 import com.wepromote.fragments.SetupWizardStep3Fragment;
+import com.wepromote.lib.Constants;
 import com.wepromote.parse.User;
 import com.wepromote.R;
 import android.app.AlertDialog;

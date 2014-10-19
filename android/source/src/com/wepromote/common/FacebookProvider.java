@@ -22,6 +22,7 @@ import com.parse.ProgressCallback;
 import com.parse.SaveCallback;
 import com.wepromote.R;
 import com.wepromote.WePromoteApplication;
+import com.wepromote.lib.Constants;
 
 import android.app.Activity;
 import android.app.AlertDialog;

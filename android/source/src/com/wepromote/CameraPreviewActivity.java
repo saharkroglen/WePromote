@@ -10,9 +10,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import com.wepromote.common.CameraImp1;
 import com.wepromote.common.CameraImp1.CameraListener;
-import com.wepromote.common.Constants;
 import com.wepromote.common.ScalingUtilities;
 import com.wepromote.common.Utils;
+import com.wepromote.lib.Constants;
 
 import android.app.ActionBar.LayoutParams;
 import android.app.Activity;

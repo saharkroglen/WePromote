@@ -26,6 +26,7 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.widget.ImageView;
 import com.wepromote.R;
+import com.wepromote.lib.Constants;
 public class CameraImp1 extends SurfaceView implements SurfaceHolder.Callback {
     private SurfaceHolder mHolder;
 	private int mScreenWidth;

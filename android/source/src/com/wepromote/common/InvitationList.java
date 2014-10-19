@@ -5,6 +5,8 @@ import java.util.ArrayList;
 
 import org.codehaus.jackson.annotate.JsonProperty;
 
+import com.wepromote.lib.Constants;
+
 
 public class InvitationList implements Serializable{		
 

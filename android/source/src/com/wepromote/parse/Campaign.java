@@ -8,7 +8,7 @@ import com.parse.ParseClassName;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
-import com.wepromote.common.Constants;
+import com.wepromote.lib.Constants;
 
 @ParseClassName("Campaign")
 public class Campaign extends ParseObject {
@@ -19,6 +19,7 @@ public class Campaign extends ParseObject {
 	OnDone resultsCallback;
 	public interface OnDone {
 	    void done(List<Campaign> campaigns);
+	    void doneMerchantCampaigns(List<Campaign> campaigns);
 	}
 	
 	public String getName()
@@ -56,6 +57,25 @@ public class Campaign extends ParseObject {
 //			}
 //		});
 //	}
+	public static void getCampaignsForMerchant(String merchantID,final OnDone doneCallback)
+	{
+		final ArrayList<Campaign> campaigns = new ArrayList<Campaign>();
+		
+		
+		ParseQuery<Campaign> mainQuery = ParseQuery.getQuery(Campaign.class);		
+		mainQuery.whereEqualTo(COLUMN_MERCHANT_ID, merchantID);
+		mainQuery.findInBackground(new FindCallback<Campaign>()  {
+		
+			@Override
+			public void done(List<Campaign> list, ParseException e) {
+				if (e == null) {					
+					doneCallback.doneMerchantCampaigns(list);
+				} else {
+					Log.d(Constants.TAG, "Error: " + e.getMessage());
+				}
+			}
+		});		
+	}
 	public static void getCampaigns(List<String> campaignIDs,final OnDone doneCallback)
 	{
 		final ArrayList<Campaign> campaigns = new ArrayList<Campaign>();

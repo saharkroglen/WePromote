@@ -4,9 +4,9 @@ import com.facebook.android.Util;
 import com.wepromote.ImagePickActivity;
 import com.wepromote.R;
 import com.wepromote.WePromoteApplication;
-import com.wepromote.common.Constants;
 import com.wepromote.common.InternalMessage;
 import com.wepromote.common.Utils;
+import com.wepromote.lib.Constants;
 
 import android.net.Uri;
 import android.os.Bundle;

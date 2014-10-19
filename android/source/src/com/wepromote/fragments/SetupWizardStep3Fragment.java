@@ -14,9 +14,9 @@ import android.widget.TextView;
 import com.wepromote.R;
 import com.wepromote.SetupWizardActivity;
 import com.wepromote.WePromoteApplication;
-import com.wepromote.common.Constants;
 import com.wepromote.common.InternalMessage;
 import com.wepromote.common.Utils;
+import com.wepromote.lib.Constants;
 
 public class SetupWizardStep3Fragment extends SetupFragmentBase implements OnClickListener {
 

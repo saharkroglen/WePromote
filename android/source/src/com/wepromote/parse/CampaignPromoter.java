@@ -8,7 +8,7 @@ import com.parse.ParseClassName;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
-import com.wepromote.common.Constants;
+import com.wepromote.lib.Constants;
 
 @ParseClassName("CampaignPromoter")
 public class CampaignPromoter extends ParseObject{

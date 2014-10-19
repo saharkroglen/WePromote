@@ -1,6 +1,6 @@
 package com.wepromote.controls;
 
-import com.wepromote.common.Constants;
+import com.wepromote.lib.Constants;
 
 import android.content.Context;
 import android.support.v4.view.MotionEventCompat;

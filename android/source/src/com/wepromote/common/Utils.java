@@ -70,6 +70,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.wepromote.R;
+import com.wepromote.lib.Constants;
 
 
 public class Utils {

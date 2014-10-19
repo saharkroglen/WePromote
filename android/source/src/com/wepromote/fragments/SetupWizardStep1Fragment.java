@@ -12,9 +12,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import com.wepromote.R;
 import com.wepromote.WePromoteApplication;
-import com.wepromote.common.Constants;
 import com.wepromote.common.InternalMessage;
 import com.wepromote.common.Utils;
+import com.wepromote.lib.Constants;
 import com.wepromote.parse.User;
 
 public class SetupWizardStep1Fragment extends SetupFragmentBase implements

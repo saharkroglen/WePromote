@@ -2,15 +2,17 @@ package com.wepromote;
 
 import com.facebook.widget.FacebookDialog;
 import com.wepromote.broadcast_receivers.ParseCustomReceiver;
-import com.wepromote.common.Constants;
 import com.wepromote.common.DrawerMenuItem;
 import com.wepromote.common.InternalMessage;
 import com.wepromote.common.Utils;
 import com.wepromote.fragments.HomeFragment;
+import com.wepromote.fragments.MerchantHomeFragment;
 import com.wepromote.fragments.PostFragment;
 import com.wepromote.fragments.InvitationsFragment;
 import com.wepromote.fragments.NavigationDrawerFragment;
 import com.wepromote.fragments.WebViewFragment;
+import com.wepromote.lib.Constants;
+
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
@@ -91,21 +93,23 @@ public class MainActivity extends ActionBarActivity implements
 		String action = this.getIntent().getAction();
 		if (action != null
 				&& action.equals(ParseCustomReceiver.ACTION_INVITE_PROMOTER)) {
-			// openInvitations();
-			// mNavigationDrawerFragment.selectItem(1);
-			// Utils.sendMessage(WePromoteApplication.getContext(),new
-			// InternalMessage(InternalMessage.MESSAGE_SELECT_MENU_ITEM,String.valueOf(MENU_ITEM_INVITATIONS)));
 			openInvitations();
 			Utils.dismissNotification(this,
 					Constants.NOTIFICATION_INVITATION_ID);
 		} else {
+			
 			Fragment f = getSupportFragmentManager().findFragmentById(
 					R.id.container);
-			if (f == null)
-				openHome();
-
-			// Utils.sendMessage(WePromoteApplication.getContext(),new
-			// InternalMessage(InternalMessage.MESSAGE_SELECT_MENU_ITEM,String.valueOf(MENU_ITEM_HOME)));
+			if (WePromoteApplication.getUser().getMerchantName() == null || WePromoteApplication.getUser().getMerchantName().trim().length() ==0)
+			{				
+				if (f == null)
+					openHome();
+			}
+			else
+			{
+				if (f == null)
+					openMerchantHome();
+			}
 
 		}
 
@@ -233,6 +237,16 @@ public class MainActivity extends ActionBarActivity implements
 		homeFrag.setArguments(args);
 
 		fragmentManager.beginTransaction().replace(R.id.container, homeFrag)
+				.commitAllowingStateLoss();
+	}
+	public void openMerchantHome() {
+		FragmentManager fragmentManager = getSupportFragmentManager();
+		Fragment merchantHomeFrag = new MerchantHomeFragment();
+		Bundle args = new Bundle();
+		args.putString(WebViewFragment.ARG_PROFILE_NAME, "todo");
+		merchantHomeFrag.setArguments(args);
+
+		fragmentManager.beginTransaction().replace(R.id.container, merchantHomeFrag)
 				.commitAllowingStateLoss();
 	}
 

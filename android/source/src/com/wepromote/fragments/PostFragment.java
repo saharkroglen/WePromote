@@ -20,10 +20,10 @@ import android.widget.GridView;
 import com.wepromote.R;
 import com.wepromote.WePromoteApplication;
 import com.wepromote.adapters.PostAdapter;
-import com.wepromote.common.Constants;
 import com.wepromote.common.FacebookProvider;
 import com.wepromote.common.Utils;
 import com.wepromote.dialogs.ShareDialog;
+import com.wepromote.lib.Constants;
 import com.wepromote.parse.Campaign;
 import com.wepromote.parse.CampaignPromoter;
 import com.wepromote.parse.CampaignPromoter.enInvitationStatus;
@@ -116,6 +116,13 @@ public class PostFragment extends Fragment implements ShareDialog.OnShareSelecte
 										mGrid.setAdapter(mAdapter);
 										
 										Utils.showSpinner(WePromoteApplication.getContext(),false);
+									}
+
+									@Override
+									public void doneMerchantCampaigns(
+											List<Campaign> campaigns) {
+										// TODO Auto-generated method stub
+										
 									}
 								});
 					}

@@ -15,9 +15,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.wepromote.ImagePickActivity;
 import com.wepromote.R;
-import com.wepromote.common.Constants;
 import com.wepromote.common.FacebookProvider;
 import com.wepromote.common.Utils;
+import com.wepromote.lib.Constants;
 import com.wepromote.parse.Campaign;
 import com.wepromote.parse.CampaignPromoter;
 

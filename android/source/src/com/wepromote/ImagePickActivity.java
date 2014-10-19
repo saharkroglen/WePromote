@@ -6,10 +6,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import com.wepromote.common.Constants;
 import com.wepromote.common.ScalingUtilities;
 import com.wepromote.common.Utils;
 import com.wepromote.common.ScalingUtilities.ScalingLogic;
+import com.wepromote.lib.Constants;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
