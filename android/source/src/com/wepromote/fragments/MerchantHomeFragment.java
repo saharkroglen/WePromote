@@ -5,6 +5,9 @@ import java.util.List;
 
 import com.wepromote.adapters.PostAdapter;
 import com.wepromote.common.Utils;
+import com.wepromote.lib.HandshakeBase;
+import com.wepromote.lib.NfcHandshake;
+import com.wepromote.lib.NfcHandshake.NFCListener;
 import com.wepromote.lib.QRHandshake;
 import com.wepromote.parse.Campaign;
 import com.wepromote.adapters.CampaignSpinnerAdapter;
@@ -82,15 +85,26 @@ public class MerchantHomeFragment extends Fragment implements OnClickListener {
 
 	@Override
 	public void onClick(View v) {
+		String campaignID = mCampaignSpinnerAdapter.getCampaign(
+				mCampaignsSpiner.getSelectedItemPosition()).getID();
+		HandshakeBase handshake ;
 		switch (v.getId()) {
 		case R.id.tileNFC:
-
+			NfcHandshake nfcHandshake = new NfcHandshake(getActivity());
+			nfcHandshake.setNfcListener(new NFCListener() {
+				
+				@Override
+				public void onNfcMessage(String msg) {
+					// TODO Auto-generated method stub
+					
+				}
+			});
+			nfcHandshake.send(nfcHandshake.getCampaignInvitationUri(campaignID,
+					WePromoteApplication.getUser().getMerchantName()));
 			break;
 		case R.id.tileQR:
-			String campaignID = mCampaignSpinnerAdapter.getCampaign(
-					mCampaignsSpiner.getSelectedItemPosition()).getID();
-
-			QRHandshake handshake = new QRHandshake(getActivity());
+			
+			handshake = new QRHandshake(getActivity());
 			handshake.send(handshake.getCampaignInvitationUri(campaignID,
 					WePromoteApplication.getUser().getMerchantName()));
 
