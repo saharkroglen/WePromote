@@ -79,6 +79,11 @@ public class PostAdapter extends BaseAdapter{
 			imgLogo.setImageResource(R.drawable.logo_tatti);
 			imgBusinessImage.setImageResource(R.drawable.image_tatti);
 		}
+		else if (campaignText.toLowerCase().contains("balzac"))
+		{
+			imgLogo.setImageResource(R.drawable.logo_balzac);
+			imgBusinessImage.setImageResource(R.drawable.image_balzac);
+		}
 		else if (campaignText.toLowerCase().contains("hilton"))
 		{
 			imgLogo.setImageResource(R.drawable.logo_hilton);
