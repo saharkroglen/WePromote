@@ -95,7 +95,7 @@ public class MerchantHomeFragment extends Fragment implements OnClickListener {
 				
 				@Override
 				public void onNfcMessage(String msg) {
-					// TODO Auto-generated method stub
+					Utils.showToast(MerchantHomeFragment.this.getActivity(), msg);
 					
 				}
 			});
