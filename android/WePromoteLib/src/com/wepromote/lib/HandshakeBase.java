@@ -12,4 +12,6 @@ public abstract class HandshakeBase {
 	public abstract void send(String text);
 
 	public abstract void receive();
+	
+	public abstract String getCampaignInvitationUri(String campaignID,String merchantName) ;
 }

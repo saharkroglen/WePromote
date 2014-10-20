@@ -12,11 +12,11 @@ import android.view.ViewGroup;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
-public class MerchantSpinnerAdapter implements SpinnerAdapter{
+public class CampaignSpinnerAdapter implements SpinnerAdapter{
     Context context;
     ArrayList<Campaign> mCampaignList;
     
-    public MerchantSpinnerAdapter(Context context ,ArrayList<Campaign> campaigns){
+    public CampaignSpinnerAdapter(Context context ,ArrayList<Campaign> campaigns){
         this.context =context;
         this.mCampaignList = campaigns;
     }
@@ -25,7 +25,11 @@ public class MerchantSpinnerAdapter implements SpinnerAdapter{
         // TODO Auto-generated method stub
         return mCampaignList.size();
     }
-
+    
+    public Campaign getCampaign(int position) {
+        
+        return (Campaign)mCampaignList.get(position);
+    }
     @Override
     public Object getItem(int position) {
         // TODO Auto-generated method stub

@@ -5,6 +5,9 @@ import java.util.ArrayList;
 
 import org.codehaus.jackson.annotate.JsonProperty;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.wepromote.lib.Constants;
 
 
@@ -45,7 +48,7 @@ public class InvitationList implements Serializable{
 		
 	}
 	
-	public static class Invitation implements Serializable
+	public static class Invitation implements Serializable,Parcelable
 	{
 		/**
 		 * 
@@ -64,6 +67,10 @@ public class InvitationList implements Serializable{
 		{
 			this.campaignID =campaingID;
 			this.merchantName = merchantName;
+		}
+		public Invitation(Parcel in)
+		{
+			readFromParcel(in);
 		}
 //		@Override
 //		public int describeContents() {
@@ -90,6 +97,20 @@ public class InvitationList implements Serializable{
 		public String getCampaignID()
 		{
 			return campaignID;
+		}
+		@Override
+		public int describeContents() {
+			// TODO Auto-generated method stub
+			return 0;
+		}
+		@Override
+		public void writeToParcel(Parcel dest, int flags) {		
+			dest.writeString(campaignID);		
+			dest.writeString(merchantName);			
+		}		
+		private void readFromParcel(Parcel in) {
+			campaignID = in.readString();
+			merchantName = in.readString();
 		}
 	}
 }

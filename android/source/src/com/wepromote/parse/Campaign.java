@@ -14,7 +14,7 @@ import com.wepromote.lib.Constants;
 public class Campaign extends ParseObject {
 
 	private static final String COLUMN_CAMPAIGN_NAME = "campaignName";
-	private static final String COLUMN_MERCHANT_ID = "merchentId";
+	private static final String COLUMN_MERCHANT_ID = "MerchentId";
 	private static final String COLUMN_ID = "objectId";
 	OnDone resultsCallback;
 	public interface OnDone {

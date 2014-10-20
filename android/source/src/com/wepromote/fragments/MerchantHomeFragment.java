@@ -7,7 +7,7 @@ import com.wepromote.adapters.PostAdapter;
 import com.wepromote.common.Utils;
 import com.wepromote.lib.QRHandshake;
 import com.wepromote.parse.Campaign;
-import com.wepromote.adapters.MerchantSpinnerAdapter;
+import com.wepromote.adapters.CampaignSpinnerAdapter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -29,6 +29,7 @@ public class MerchantHomeFragment extends Fragment implements OnClickListener {
 	private ViewGroup mTileNFC;
 	private TextView mTxtTitle;
 	private Spinner mCampaignsSpiner;
+	private CampaignSpinnerAdapter mCampaignSpinnerAdapter;
 
 	public MerchantHomeFragment() {
 	}
@@ -41,25 +42,27 @@ public class MerchantHomeFragment extends Fragment implements OnClickListener {
 
 		mCampaignsSpiner = (Spinner) rootView
 				.findViewById(R.id.spinnerCampaigns);
+
 		Campaign.getCampaignsForMerchant(WePromoteApplication.getUser()
 				.getUserID(), new Campaign.OnDone() {
 
 			@Override
-			public void doneMerchantCampaigns(List<Campaign> campaigns) {
-				// TODO Auto-generated method stub
-
+			public void doneMerchantCampaigns(final List<Campaign> campaigns) {
+				MerchantHomeFragment.this.getActivity().runOnUiThread(
+						new Runnable() {
+							@Override
+							public void run() {
+								mCampaignSpinnerAdapter = new CampaignSpinnerAdapter(
+										MerchantHomeFragment.this.getActivity(),
+										(ArrayList<Campaign>) campaigns);
+								mCampaignsSpiner
+										.setAdapter(mCampaignSpinnerAdapter);
+							}
+						});
 			}
 
 			@Override
 			public void done(final List<Campaign> campaigns) {
-				MerchantHomeFragment.this.getActivity().runOnUiThread(
-						new Runnable() {
-
-							@Override
-							public void run() {
-								mCampaignsSpiner.setAdapter(new MerchantSpinnerAdapter(MerchantHomeFragment.this.getActivity(),(ArrayList<Campaign>) campaigns));
-							}
-						});
 
 			}
 		});
@@ -84,7 +87,13 @@ public class MerchantHomeFragment extends Fragment implements OnClickListener {
 
 			break;
 		case R.id.tileQR:
-			new QRHandshake(getActivity()).send("http://blabla.com");
+			String campaignID = mCampaignSpinnerAdapter.getCampaign(
+					mCampaignsSpiner.getSelectedItemPosition()).getID();
+
+			QRHandshake handshake = new QRHandshake(getActivity());
+			handshake.send(handshake.getCampaignInvitationUri(campaignID,
+					WePromoteApplication.getUser().getMerchantName()));
+
 			break;
 
 		}

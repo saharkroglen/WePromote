@@ -8,6 +8,7 @@ import com.parse.ParseClassName;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.wepromote.WePromoteApplication;
 import com.wepromote.lib.Constants;
 
 @ParseClassName("CampaignPromoter")
@@ -35,6 +36,15 @@ public class CampaignPromoter extends ParseObject{
 	public void setStatus(enInvitationStatus status)
 	{
 		put(COLUMN_STATUS, new Integer(status.ordinal()));
+	}
+	
+	public void setCampaignID(String campaignID)
+	{
+		put(COLUMN_CAMPAIGN_ID, campaignID);
+	}
+	public void setPromoterID(String promoterID)
+	{
+		put(COLUMN_PROMOTER_ID, promoterID);
 	}
 	
 //	void fireCampaignIDsResult(List<String> campaignIDs) {
@@ -72,7 +82,7 @@ public class CampaignPromoter extends ParseObject{
 	}
 
 	
-	public static void updateInvitationStatus(final enInvitationStatus status,String campaignID) {
+	public static void updateInvitationStatus(final enInvitationStatus status,final String campaignID) {
 		ParseQuery<CampaignPromoter> query = ParseQuery.getQuery(CampaignPromoter.class);
 		query.whereEqualTo(COLUMN_CAMPAIGN_ID, campaignID);
 		query.findInBackground(new FindCallback<CampaignPromoter>() {
@@ -80,9 +90,20 @@ public class CampaignPromoter extends ParseObject{
 			@Override
 			public void done(List<CampaignPromoter> list, ParseException e) {
 				if (e == null) {
-					for (CampaignPromoter campaignPromoter : list) {						
-						campaignPromoter.setStatus(status);
-						campaignPromoter.saveInBackground();
+					if (list.size() == 0) //create if doesn't exist
+					{
+						CampaignPromoter newCampaignPromoter = new CampaignPromoter();
+						newCampaignPromoter.setPromoterID(WePromoteApplication.getUser().getPromoterID(false));
+						newCampaignPromoter.setCampaignID(campaignID);
+						newCampaignPromoter.setStatus(status);
+						newCampaignPromoter.saveInBackground();
+					}
+					else
+					{
+						for (CampaignPromoter campaignPromoter : list) {						
+							campaignPromoter.setStatus(status);
+							campaignPromoter.saveInBackground();
+						}
 					}
 				}
 				else {

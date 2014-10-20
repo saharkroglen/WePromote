@@ -68,4 +68,10 @@ public class NfcHandshake extends HandshakeBase {
 		
 	}
 
+	@Override
+	public String getCampaignInvitationUri(String campaignID,String merchantName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

@@ -3,6 +3,7 @@ package com.wepromote.lib;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.text.TextUtils;
 
 public class QRHandshake extends HandshakeBase {
 
@@ -20,6 +21,7 @@ public class QRHandshake extends HandshakeBase {
 			intent.putExtra("ENCODE_TYPE", "TEXT_TYPE" );
 			intent.putExtra("ENCODE_SHOW_CONTENTS", false );
 			mContext.startActivity(intent);
+			
 //		}
 		
 	}
@@ -32,6 +34,11 @@ public class QRHandshake extends HandshakeBase {
 			mContext.startActivityForResult(intent, Constants.REQUEST_CODE_SCAN_QR);
 //		}
 		
+	}
+
+	@Override
+	public String getCampaignInvitationUri(String campaignID,String merchantName) {
+		return String.format("wepromote://invite/?campaignID=%s&merchantName=%s", TextUtils.htmlEncode(campaignID),TextUtils.htmlEncode(merchantName));
 	}
 
 }

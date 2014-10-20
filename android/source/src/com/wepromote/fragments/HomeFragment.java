@@ -177,19 +177,19 @@ public class HomeFragment extends Fragment implements OnClickListener{
 			((MainActivity) mContext).openPost();
 			break;
 		case R.id.tileInvitations:
-			((MainActivity) mContext).openInvitations();
+			((MainActivity) mContext).openInvitations(null);
 			break;
 		case R.id.tileMembership:
 //			testParseJoinQuery();
 			
 //			scanBarcode();			
 //			generateBarcode("http://blabla.com");
-			new QRHandshake(getActivity()).receive();
+//			new QRHandshake(getActivity()).receive();
             
 			break;
 		case R.id.tileRewards:
 			
-			new QRHandshake(getActivity()).send("http://blabla.com");
+//			new QRHandshake(getActivity()).send("http://blabla.com");
 	        
 			break;
 		}		

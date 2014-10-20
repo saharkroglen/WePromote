@@ -5,28 +5,63 @@
     android:orientation="vertical"
     tools:context="com.example.personalizedselfeed.MainActivity$PlaceholderFragment" >
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal" >
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="Pending Invitations"
-        android:textSize="20sp" 
-        android:textStyle="bold"
-        android:layout_margin="10dp"
-        >
-    </TextView>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_margin="10dp"
+            android:text="Invitations"
+            android:textSize="20sp"
+            android:textStyle="bold" >
+        </TextView>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_alignParentRight="true" 
+            android:layout_marginRight="2dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Scan"
+                android:textSize="10sp"                >
+            </TextView>
+
+            <ImageView
+                android:id="@+id/imgScanBarcode"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"                
+                android:adjustViewBounds="true"
+                android:clickable="true"
+                android:paddingBottom="2dp"
+                android:src="@drawable/scan_qr" />
+        </LinearLayout>
+    </RelativeLayout>
+    <View
+    android:layout_width="fill_parent"
+    android:layout_height="1dp"
+    android:background="@android:color/darker_gray"/>
 
     <GridView
         android:id="@+id/gridAddedPackages"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_centerInParent="true"
+        android:layout_weight="9"
+        android:animateLayoutChanges="true"
         android:horizontalSpacing="0dp"
         android:numColumns="1"
         android:verticalSpacing="10dp"
-        tools:listitem="@layout/item_invitation" 
-        android:animateLayoutChanges="true">
+        tools:listitem="@layout/item_invitation" >
     </GridView>
 
 </LinearLayout>

@@ -15,6 +15,11 @@ public class Constants {
 	public static final int REQUEST_CODE_CAPTURE_IMAGE_FOR_OTHERS = 98;
 	public static final int REQUEST_CODE_SCAN_QR = 97;
 	public static final String REQUEST_CODE = "requestCode";
+	
+	public static final String ARG_PROFILE_NAME = "profile_name";
+	public static final String ARG_INVITATION = "invitation";
+//	public static final String ARG_INVITATION_CAMPAIGN_ID = "invitation_id";
+//	public static final String ARG_INVITATION_MERCHANT_NAME = "invitation_name";
 //	public static final String EXTRA_MENU_ITEM = "extra_menu_item";
 
 }

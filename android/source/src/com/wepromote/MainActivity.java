@@ -4,6 +4,8 @@ import com.facebook.widget.FacebookDialog;
 import com.wepromote.broadcast_receivers.ParseCustomReceiver;
 import com.wepromote.common.DrawerMenuItem;
 import com.wepromote.common.InternalMessage;
+import com.wepromote.common.InvitationList;
+import com.wepromote.common.InvitationList.Invitation;
 import com.wepromote.common.Utils;
 import com.wepromote.fragments.HomeFragment;
 import com.wepromote.fragments.MerchantHomeFragment;
@@ -12,7 +14,7 @@ import com.wepromote.fragments.InvitationsFragment;
 import com.wepromote.fragments.NavigationDrawerFragment;
 import com.wepromote.fragments.WebViewFragment;
 import com.wepromote.lib.Constants;
-
+import com.wepromote.common.InvitationList.Invitation;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
@@ -93,7 +95,7 @@ public class MainActivity extends ActionBarActivity implements
 		String action = this.getIntent().getAction();
 		if (action != null
 				&& action.equals(ParseCustomReceiver.ACTION_INVITE_PROMOTER)) {
-			openInvitations();
+			openInvitations(null);
 			Utils.dismissNotification(this,
 					Constants.NOTIFICATION_INVITATION_ID);
 		} else {
@@ -117,6 +119,21 @@ public class MainActivity extends ActionBarActivity implements
 		// startActivity(i);
 
 		initScreenSize();
+	}
+	
+	@Override
+	protected void onNewIntent(Intent intent) {
+		// TODO Auto-generated method stub
+//		Bundle data = intent.getExtras();
+		if (intent != null)
+		{
+//			Invitation invitation = (Invitation) intent.getParcelable(Constants.ARG_INVITATION);
+			Uri uri = intent.getData();
+			String campaignID = uri.getQueryParameter("campaignID");
+			String merchantName = uri.getQueryParameter("merchantName");
+			openInvitations(new Invitation(campaignID, merchantName));
+		}
+		super.onNewIntent(intent);
 	}
 
 	private void initScreenSize() {
@@ -208,7 +225,7 @@ public class MainActivity extends ActionBarActivity implements
 			openHome();
 			break;
 		case MENU_ITEM_INVITATIONS:
-			openInvitations();
+			openInvitations(null);
 			break;
 		case MENU_ITEM_LOGOUT:
 			logout();
@@ -216,12 +233,17 @@ public class MainActivity extends ActionBarActivity implements
 		}
 	}
 
-	public void openInvitations() {
+	public void openInvitations(Invitation invite) {
 		FragmentManager fragmentManager = getSupportFragmentManager();
 		Fragment invitationsFrag = new InvitationsFragment();
-		Bundle args = new Bundle();
-		args.putString(WebViewFragment.ARG_PROFILE_NAME, "todo");
-		invitationsFrag.setArguments(args);
+		if (invite != null)
+		{
+			Bundle args = new Bundle();
+			args.putParcelable(Constants.ARG_INVITATION, invite);
+//			args.putString(Constants.ARG_INVITATION_CAMPAIGN_ID, campaignID);
+//			args.putString(Constants.ARG_INVITATION_MERCHANT_NAME, merchantName);
+			invitationsFrag.setArguments(args);
+		}
 
 		fragmentManager.beginTransaction()
 				.replace(R.id.container, invitationsFrag)
@@ -351,8 +373,10 @@ public class MainActivity extends ActionBarActivity implements
 		if (data != null && data.getExtras() != null) {
 			String contents = data.getStringExtra("SCAN_RESULT");
 			String format = data.getStringExtra("SCAN_RESULT_FORMAT");
-			Utils.showToast(this,
-					String.format("format: %s, Content: %s", format, contents));
+			Intent i = new Intent(Intent.ACTION_VIEW);
+			i.setData(Uri.parse(contents));
+			startActivity(i);
+//			Utils.showToast(this,String.format("format: %s, Content: %s", format, contents));
 		}
 	}
 
