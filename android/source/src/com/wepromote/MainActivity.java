@@ -360,19 +360,19 @@ public class MainActivity extends ActionBarActivity implements
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		// TODO Auto-generated method stub
-
-		// System.gc();
-		// Fragment f =
-		// getSupportFragmentManager().findFragmentById(R.id.container);
-		// if (f instanceof PostFragment)
-		// { }
+		
 		super.onActivityResult(requestCode, resultCode, data);
-		// }
-
+	
 		if (data != null && data.getExtras() != null) {
-			String contents = data.getStringExtra("SCAN_RESULT");
-			String format = data.getStringExtra("SCAN_RESULT_FORMAT");
+			ExtractScanningParams(data);
+		}
+	}
+
+	private void ExtractScanningParams(Intent data) {
+		String contents = data.getStringExtra("SCAN_RESULT");
+		String format = data.getStringExtra("SCAN_RESULT_FORMAT");
+		if (contents != null && format != null)
+		{
 			Intent i = new Intent(Intent.ACTION_VIEW);
 			i.setData(Uri.parse(contents));
 			startActivity(i);
