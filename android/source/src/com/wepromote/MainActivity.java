@@ -125,7 +125,7 @@ public class MainActivity extends ActionBarActivity implements
 	protected void onNewIntent(Intent intent) {
 		// TODO Auto-generated method stub
 //		Bundle data = intent.getExtras();
-		if (intent != null)
+		if (intent != null && intent.getData() != null)
 		{
 //			Invitation invitation = (Invitation) intent.getParcelable(Constants.ARG_INVITATION);
 			Uri uri = intent.getData();
