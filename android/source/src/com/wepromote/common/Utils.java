@@ -22,9 +22,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Queue;
 import java.util.UUID;
-
 import org.codehaus.jackson.map.ObjectMapper;
-
 import com.wepromote.WePromoteApplication;
 import android.view.MotionEvent;
 import android.view.View;

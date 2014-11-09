@@ -5,7 +5,7 @@ import java.util.List;
 
 import android.R.color;
 import android.annotation.TargetApi;
-import com.google.zxing.BarcodeFormat;
+//import com.google.zxing.BarcodeFormat;
 import com.google.zxing.client.android.Contents;
 import com.google.zxing.client.android.Intents;
 import com.parse.FindCallback;

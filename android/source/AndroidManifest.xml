@@ -6,7 +6,7 @@
 
     <uses-sdk
         android:minSdkVersion="14"
-        android:targetSdkVersion="19" />
+        android:targetSdkVersion="21" />
 
      <!-- permissions for push notification -->
         <permission android:name="com.wepromote.permission.C2D_MESSAGE" android:protectionLevel="signature" />
