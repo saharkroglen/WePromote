@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
-        android:background="@drawable/progress_bar_background"
+        android:background="@android:drawable/dialog_holo_light_frame"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingBottom="10dp"
